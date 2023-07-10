@@ -1,16 +1,14 @@
 local lspconfig = require("lspconfig")
 local cmp= require('cmp')
-
-
-local protocol = require('vim.lsp.protocol')
 local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
+local path_to_python = 'C:/Users/dexte/AppData/Local/Programs/Python/Python38-32/python.exe'
 
-cmp.setup({
+local cmp_select = { behavior = cmp.SelectBehavior.Select}
+ cmp.setup({
     mapping = cmp.mapping.preset.insert({
-      ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-      ['<C-f>'] = cmp.mapping.scroll_docs(4),
+      ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
+      ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
       ['<C-Space>'] = cmp.mapping.complete(),
-      ['<C-e>'] = cmp.mapping.abort(),
       ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
     }),
     sources = cmp.config.sources({
@@ -23,6 +21,7 @@ cmp.setup({
       { name = 'buffer' },
     })
   })
+ 
 
 local on_attach = function(client, bufnr)
   -- Enable completion triggered by <c-x><c-o>
@@ -58,6 +57,10 @@ end
 
 
 lspconfig.tsserver.setup{
+	filetypes = { "javascript", "typescript", "typescriptreact", "typescipt.tsx"},
+    root_dir = function() return vim.loop.cwd() end 
+
+	
 }
 lspconfig.html.setup{
 	cmd = {"html-languageserver.cmd", "--stdio"}, 
@@ -74,4 +77,17 @@ lspconfig.html.setup{
     capabilities = capabilities
  }
 
+lspconfig.pyright.setup{
+	cmd = { "pyright-langserver.cmd", "--stdio"},
+	on_attach = on_attach,
+	capabilities = capabilities,
+    
+	settings = {
+
+		python = {
+
+			pythonPath = path_to_python
+		}
+	}
+}
 

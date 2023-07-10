@@ -72,8 +72,8 @@ local config = {
 	},
 
     root_dir = root_dir, 
---	capabilities = capabilities,
-  on_attach = on_attach,
+	capabilities = capabilities,
+    on_attach = on_attach,
   settings = {
     java = {
       home = jdkPath11,

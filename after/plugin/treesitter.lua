@@ -1,7 +1,7 @@
 require 'nvim-treesitter.install'.compilers = { 'zig' }
 require'nvim-treesitter.configs'.setup {
   -- A list of parser names, or "all" (the five listed parsers should always be installed)
-  ensure_installed = { "c", "vim", "lua", "vimdoc", "query", "javascript", "css", "java", "html" },
+  ensure_installed = { "c", "vim", "lua", "vimdoc", "query", "javascript", "css", "java", "html", "python" },
 
   -- Install parsers synchronously (only applied to `ensure_installed`)
   sync_install = false,
@@ -23,6 +23,56 @@ require'nvim-treesitter.configs'.setup {
     -- Using this option may slow down your editor, and you may see some duplicate highlights.
     -- Instead of true it can also be a list of languages
     additional_vim_regex_highlighting = false,
+  },
+  incremental_selection = {
+	init_selection = '<c-space>',
+	node_incremental = '<c-space>',
+	scope_incremental = '<c-s>',
+	node_incremental = '<c-backspace>',
+
+  },
+  textobjects = {
+     select = {
+		enable = true,
+	 	lookahead = true,
+		keymaps = {
+			['aa'] = '@parameter.outer',
+			['ia'] = '@parameter.inner',
+			['af'] = '@functio.outer',
+			['if'] = '@function.inner',
+			['ac'] = '@class.outer',
+			['ic'] = '@class.inner',
+			},
+		},
+		move = {
+			enable = true,
+			set_jumps = true,
+			goto_next_start = {
+			[']m'] = '@function.outer',
+			[']]'] = '@class.outer',
+			},
+			goto_next_end = {
+			[']M'] = '@function.outer',
+			[']['] = '@class.outer',
+			},
+			goto_previous_start = {
+			['[m'] = '@function.outer',
+			['[['] = '@class.outer',
+			},
+			goto_previous_end  = {
+			[']M'] = '@function.outer',
+			['[]'] = '@class.outer',
+			},
+		},
+	   swap = {
+        enable = true,
+        swap_next = {
+          ["<leader>a"] = "@parameter.inner",
+        },
+        swap_previous = {
+          ["<leader>A"] = "@parameter.inner",
+        },
+      },		
   },
 
   autotag = {

@@ -28,35 +28,10 @@ return require('packer').startup(function(use)
    )
  use('nvim-treesitter/playground')
  use('ThePrimeagen/harpoon')
- --[[ use  {
-    'windwp/nvim-ts-autotag',
-  dependencies = "nvim-treesitter/nvim-treesitter",	
-    config = function()
-      require('nvim-ts-autotag').setup({
-        filetypes = { "html" , "xml" }
-      })
-    end
-}
-]]--
 
+  use 'nvim-treesitter/nvim-treesitter-textobjects'
   use 'windwp/nvim-ts-autotag'
   use 'mattn/emmet-vim'
---[[ 
-   use {
-        'barrett-ruth/live-server.nvim',
-        config = function()
-	       require('live-server').setup {
-			  port = 8080, -- Set the server port
-			  host = '127.0.0.1', -- Set the server host
-			  open = true, -- Don't automatically open the server URL in the browser
-			  mount = {'C:/Users/dexte/practice_vue'}, -- Specify adjk ditional directories to serve
-			  file = {}, -- Specify additional files to serve
-			  log = false, -- Disable server logging
-			}
-        end
-    } 
-    ]]-- 
 
---  use {'neoclide/coc.nvim', branch = 'release'}
 end)
 
