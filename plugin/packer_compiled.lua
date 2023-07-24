@@ -129,6 +129,11 @@ _G.packer_plugins = {
     path = "C:\\Users\\dexte\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\nvim-treesitter",
     url = "https://github.com/nvim-treesitter/nvim-treesitter"
   },
+  ["nvim-treesitter-textobjects"] = {
+    loaded = true,
+    path = "C:\\Users\\dexte\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\nvim-treesitter-textobjects",
+    url = "https://github.com/nvim-treesitter/nvim-treesitter-textobjects"
+  },
   ["nvim-ts-autotag"] = {
     loaded = true,
     path = "C:\\Users\\dexte\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\nvim-ts-autotag",

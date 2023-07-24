@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 
 interface  User{
    void f1(); 
@@ -31,7 +30,7 @@ public class Test{
 	public void main(String [] args){
 
      	new ArrayList<String>();
-		
+        		
 	
 	}
 
