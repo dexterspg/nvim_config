@@ -1,4 +1,4 @@
- 
+vim.cmd[[colorscheme industry]] 
 -- Map the leader key to spacebar
 vim.g.mapleader = ' '
 
@@ -10,7 +10,7 @@ vim.keymap.set('n', '<A-j>','<esc>:m+1<CR>', {noremap = true})
 vim.keymap.set('v', '<A-j>',":m '>+1<CR>gv=gv", {noremap = true})
 vim.keymap.set('v', '<A-k>',":m '<-2<CR>gv=gv", {noremap = true})
 
-vim.cmd('colorscheme industry')
+--vim.cmd('colorscheme industry')
 -- Set options
 vim.opt.relativenumber = true
 vim.opt.swapfile = false

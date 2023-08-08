@@ -29,9 +29,14 @@ return require('packer').startup(function(use)
  use('nvim-treesitter/playground')
  use('ThePrimeagen/harpoon')
 
-  use 'nvim-treesitter/nvim-treesitter-textobjects'
-  use 'windwp/nvim-ts-autotag'
-  use 'mattn/emmet-vim'
+ use 'nvim-treesitter/nvim-treesitter-textobjects'
+ use 'windwp/nvim-ts-autotag'
+ use 'mattn/emmet-vim'
+ use{'folke/tokyonight.nvim', 
+
+ config  = function() vim.cmd('colorscheme tokyonight-moon') end
+  }
+ 
 
 end)
 
