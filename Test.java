@@ -30,7 +30,9 @@ public class Test{
 	public void main(String [] args){
 
      	new ArrayList<String>();
+		Gamer game = new Gamer();
         		
+		game.f1();
 	
 	}
 

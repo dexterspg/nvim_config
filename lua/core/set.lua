@@ -1,4 +1,4 @@
-vim.cmd[[colorscheme industry]] 
+--vim.cmd[[colorscheme industry]] 
 -- Map the leader key to spacebar
 vim.g.mapleader = ' '
 

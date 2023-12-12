@@ -1,3 +1,3 @@
-require("dexter/packer")
-require("dexter/set")
-require("dexter/remap")
+require("core/set")
+require("core/plugins")
+require("core/remap")

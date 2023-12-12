@@ -31,7 +31,8 @@ require'nvim-treesitter.configs'.setup {
 	node_incremental = '<c-backspace>',
 
   }, ]]
-  textobjects = {
+--[=[
+textobjects = {
      select = {
 		enable = true,
 	 	lookahead = true,
@@ -74,12 +75,13 @@ require'nvim-treesitter.configs'.setup {
         },
       },		
   },
+  ]=]
 
   autotag = {
     enable = true,
 	enable_rename =true,
 	enable_close =true,
 	enable_close_on_slash=true,
-    filetypes = { "html", "xml", "php", "vue" },
+    filetypes = { "html", "xml", "vue" },
   }
 }
