@@ -1,12 +1,19 @@
 require("toggleterm").setup({
-  size=20,
-  open_mapping='<c-\\>',
+  size = 20,
+  open_mapping=[[<C-\>]],
   start_in_insert=true,
---  shell="/c/Program Files/Git/git-bash.exe"
-   direction= 'float',
+  direction = 'horizontal',  
+  close_on_exit=true
+  --shell = vim.o.shell
 
 })
 
 
- -- vim.cmd [[let &shell = '"/c/Program\ Files/Git/git-bash.exe'"]]
- -- vim.cmd [[let &shellcmdflag = '-s']]
+vim.cmd [[let &shell = '"C:\\Program Files\\Git\\bin\\bash.exe"']]
+vim.cmd [[let &shellcmdflag = '-s']]
+
+--vim.api.nvim_set_keymap('n', '<leader>t', ':term C:\\Program^ Files\\Git\\bin\\bash.exe<CR>', { noremap = true, silent = true })
+
+--Make the terminal behave like a normal buffer
+--vim.cmd([[ autocmd TermOpen * startinsert ]])
+
