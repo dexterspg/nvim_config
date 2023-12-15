@@ -18,12 +18,17 @@ end
 function P.map_java_keys(bufnr)
     local opts = { buffer = bufnr }
     map_lsp_keys(opts)
+
+	local spring_boot_run='mvn spring-boot:run -Dspring-boot.run.profiles=local'
+	local command = ':lua require("toggleterm").exec("'.. spring_boot_run..'")<CR>'
+    vim.keymap.set('n', '<leader>sr', command)
+
+    vim.keymap.set('n', '<leader>oi', ':lua require("jdtls").organize_imports()<CR>')
     vim.keymap.set('n', '<leader>oi', ':lua require("jdtls").organize_imports()<CR>')
     vim.keymap.set('n', '<leader>jc', ':lua require("jdtls").compile("instrumental")')
     vim.keymap.set({'v','n'}, '<leader>crv', ':lua require("jdtls").extract_variable()<CR>', opts)
     vim.keymap.set({'v', 'n'}, '<leader>crc', ':lua require("jdtls").extract_constant()<CR>', opts)
     vim.keymap.set({'v', 'n'}, '<leader>crm', ':lua require("jdtls").extract_method()<CR>', opts)
-    print("keymaps map java_keys")
 end
 
 function P.map_python_keys(bufnr)
@@ -34,7 +39,6 @@ function P.map_python_keys(bufnr)
     vim.keymap.set({'v','n'}, '<leader>crv', ':lua require("jdtls").extract_variable()<CR>', opts)
     vim.keymap.set({'v', 'n'}, '<leader>crc', ':lua require("jdtls").extract_constant()<CR>', opts)
     vim.keymap.set({'v', 'n'}, '<leader>crm', ':lua require("jdtls").extract_method()<CR>', opts)
-    print("keymaps map python_keys")
 end
 return P
 

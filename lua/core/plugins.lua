@@ -15,6 +15,7 @@ vim.opt.rtp:prepend(lazypath)
 plugins = {
 
 --  'wbthomason/packer.nvim',
+
   'stevearc/oil.nvim',
   'vim-airline/vim-airline',
   'preservim/nerdtree',
@@ -24,7 +25,9 @@ plugins = {
   dependencies = { {'nvim-lua/plenary.nvim'} }
   },
   'BurntSushi/ripgrep',
+  'ThePrimeagen/harpoon',
   'mfussenegger/nvim-jdtls',
+
   'williamboman/mason.nvim',
   'williamboman/mason-lspconfig.nvim',
   'neovim/nvim-lspconfig',
@@ -34,14 +37,16 @@ plugins = {
   'hrsh7th/cmp-buffer',
 
   'nvim-treesitter/nvim-treesitter',
-   
   'nvim-treesitter/playground',
-  'ThePrimeagen/harpoon',
-
   'nvim-treesitter/nvim-treesitter-textobjects',
+
   'windwp/nvim-ts-autotag',
   'mattn/emmet-vim',
-  
+  {
+    'windwp/nvim-autopairs',
+    event = "InsertEnter",
+  },
+
   -- {'akinsho/toggleterm.nvim', version = "*", config = true},
  'akinsho/toggleterm.nvim',
 
@@ -53,9 +58,6 @@ plugins = {
   'rebelot/kanagawa.nvim',
   'ellisonleao/gruvbox.nvim',
   'xiyaowong/transparent.nvim'
-
-
-
 }
 
 local opts = {}

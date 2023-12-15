@@ -5,7 +5,6 @@ vim.env.JAVA_HOME = jdkPath
 local jdtls_dir = 'C:/jdtls'
 -- local nvim_data = 'C:/Users/dexte/AppData/Local/nvim-data'
 local nvim_data = vim.fn.stdpath('data')
-print(nvim_data)
 local mason_dir = nvim_data .. '/mason/packages'
 local config_dir = jdtls_dir .. '/config_win'
 local plugins_dir = jdtls_dir .. '/plugins'

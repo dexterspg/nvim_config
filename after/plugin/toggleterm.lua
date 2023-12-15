@@ -2,7 +2,7 @@ require("toggleterm").setup({
   size = 20,
   open_mapping=[[<C-\>]],
   start_in_insert=true,
-  direction = 'horizontal',  
+  direction = 'float',  
   close_on_exit=true
   --shell = vim.o.shell
 
