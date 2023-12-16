@@ -1,30 +1,10 @@
 local lspconfig = require("lspconfig")
-local cmp= require('cmp')
 local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 local path_to_python = vim.fn.expand('~') .. '/AppData/Local/Programs/Python/Python38-32/python.exe'
 local path_to_lua = 'C:/Program Files (x86)/Lua/5.1/lua.exe'
 local nvim_data = vim.fn.stdpath('data')
 local mason_path = nvim_data .. '/mason/bin'
-
-local cmp_select = { behavior = cmp.SelectBehavior.Select}
- cmp.setup({
-    mapping = cmp.mapping.preset.insert({
-      ['<S-Tab>'] = cmp.mapping.select_prev_item(cmp_select),
-      ['<Tab>'] = cmp.mapping.select_next_item(cmp_select),
-      ['<C-Space>'] = cmp.mapping.complete(),
-      ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-    }),
-    sources = cmp.config.sources({
-      { name = 'nvim_lsp' },
-      { name = 'vsnip' }, -- For vsnip users.
-      -- { name = 'luasnip' }, -- For luasnip users.
-      -- { name = 'ultisnips' }, -- For ultisnips users.
-      -- { name = 'snippy' }, -- For snippy users.
-    }, {
-      { name = 'buffer' },
-    })
-  })
  
 local success, keymaps = pcall(require, 'after.plugin.keymaps')
 if not success then

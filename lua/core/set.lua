@@ -19,5 +19,5 @@ vim.opt.tabstop = 4
 vim.opt.cursorline = true  
 -- vim.opt.timeoutlen=100
 -- Define register content
-vim.cmd('let @a = "iSystem.out.println("')  
+--vim.cmd('let @a = "iSystem.out.println("')  
 
