@@ -41,17 +41,15 @@ os.execute("mkdir " .. workspace_dir)
 local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 vim.cmd('cd ' .. vim.fn.stdpath('config')) 
-local success, keymaps = pcall(require,   'after/plugin/keymaps')
-if success then
-  print("keymaps processing")
-else
+local success, keymaps = pcall(require, 'after.plugin.keymaps')
+if not success then
   print('Error: Failed to load keymaps.lua, keymaps')
   return
 end
 
 
-local on_attach = function(client, bufnr) 
-    keymaps.map_java_keys(bufnr)
+local on_attach = function() 
+    keymaps.map_java_keys()
 end
 vim.cmd('cd ' .. root_dir) 
 

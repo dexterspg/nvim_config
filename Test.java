@@ -1,7 +1,7 @@
 
 interface  User{
    void f1(); 
-   
+faawf   
 
 }
 
