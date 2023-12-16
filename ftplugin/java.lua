@@ -2,16 +2,17 @@ local javaPath = 'C:/Program Files/Java'
 local jdkPath17 = javaPath .. '/jdk-17'
 local jdkPath11 = javaPath .. '/jdk-11.0.7'
 vim.env.JAVA_HOME = jdkPath
-local jdtls_dir = 'C:/jdtls'
 -- local nvim_data = 'C:/Users/dexte/AppData/Local/nvim-data'
 local nvim_data = vim.fn.stdpath('data')
 local mason_dir = nvim_data .. '/mason/packages'
+local jdtls_dir = mason_dir .. '/jdtls' 
 local config_dir = jdtls_dir .. '/config_win'
 local plugins_dir = jdtls_dir .. '/plugins'
-local path_to_jar = plugins_dir ..  '/org.eclipse.equinox.launcher_1.6.400.v20210924-0641.jar'
+local path_to_jar = plugins_dir ..  '/org.eclipse.equinox.launcher_1.6.600.v20231106-1826.jar'
 local path_to_lombok = jdtls_dir .. '/lombok.jar' 
 vim.env.LOMBOK_JAR = path_to_lombok
 print(path_to_lombok)
+
 
 local root_markers = {'.git', 'mvnw', 'gradlew', "pom.xml", "build.gradle"} 
 -- local root_dir = require('jdtls.setup').find_root(root_markers)
