@@ -12,13 +12,16 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 
-plugins = {
+local plugins = {
 
 	--  'wbthomason/packer.nvim',
 
 	'stevearc/oil.nvim',
-	'vim-airline/vim-airline',
-	'preservim/nerdtree',
+	'nvim-tree/nvim-tree.lua',
+	'nvim-tree/nvim-web-devicons',
+	'nvim-lualine/lualine.nvim',
+	-- 'vim-airline/vim-airline',
+	-- 'preservim/nerdtree',
 	{
 		'nvim-telescope/telescope.nvim',
 		tag = '0.1.1',
@@ -59,9 +62,12 @@ plugins = {
 	-- colorscheme
 	{
 		'folke/tokyonight.nvim',
-		config = function() vim.cmd('colorscheme tokyonight-moon') end
+		-- config = function() vim.cmd('colorscheme tokyonight-moon') end
 	},
-	'rebelot/kanagawa.nvim',
+	{
+		'rebelot/kanagawa.nvim',
+		 config = function() vim.cmd('colorscheme kanagawa-dragon') end
+	},
 	'ellisonleao/gruvbox.nvim',
 	'xiyaowong/transparent.nvim'
 }

@@ -28,21 +28,16 @@ lspconfig.tsserver.setup{
 	on_attach = on_attach,
 	capabilities = capabilities,
     root_dir = function() return vim.loop.cwd() end , 
-
 	settings  = {
 		Lua = {
 			runtime = {
 				version = 'luaJIT'	
 			},
-
 			diagnostics = {
 				globals = {'vim'}
 			}, 
-
 		}
-
 	}
-
 } 
 
 lspconfig.html.setup{
