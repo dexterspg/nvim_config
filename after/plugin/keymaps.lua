@@ -45,9 +45,9 @@ function M.map_java_keys()
 
 	vim.keymap.set('n', '<leader>oi', ':lua require("jdtls").organize_imports()<CR>')
 	vim.keymap.set('n', '<leader>jc', ':lua require("jdtls").compile("instrumental")')
-	vim.keymap.set({ 'v', 'n' }, '<leader>crv', ':lua require("jdtls").extract_variable()<CR>', opts)
-	vim.keymap.set({ 'v', 'n' }, '<leader>crc', ':lua require("jdtls").extract_constant()<CR>', opts)
-	vim.keymap.set({ 'v', 'n' }, '<leader>crm', ':lua require("jdtls").extract_method()<CR>', opts)
+	vim.keymap.set({ 'v', 'n' }, '<leader>cev', ':lua require("jdtls").extract_variable()<CR>', opts)
+	vim.keymap.set({ 'v', 'n' }, '<leader>cec', ':lua require("jdtls").extract_constant()<CR>', opts)
+	vim.keymap.set({ 'v', 'n' }, '<leader>cem', ':lua require("jdtls").extract_method()<CR>', opts)
 end
 
 function M.map_python_keys()

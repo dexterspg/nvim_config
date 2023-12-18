@@ -18,6 +18,8 @@ vim.o.cursorline=true   -- not working
 -- vim.opt.timeoutlen=100
 -- Define register content
 --vim.cmd('let @a = "iSystem.out.println("')  
+--
+
 
 local opts = { noremap = true, silent = true}
 

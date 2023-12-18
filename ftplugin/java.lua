@@ -1,7 +1,7 @@
 local javaPath = 'C:/Program Files/Java'
 local jdkPath17 = javaPath .. '/jdk-17'
 local jdkPath11 = javaPath .. '/jdk-11.0.7'
-vim.env.JAVA_HOME = jdkPath
+-- vim.env.JAVA_HOME = jdkPath
 -- local nvim_data = 'C:/Users/dexte/AppData/Local/nvim-data'
 local nvim_data = vim.fn.stdpath('data')
 local mason_dir = nvim_data .. '/mason/packages'

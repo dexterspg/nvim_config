@@ -1,10 +1,13 @@
 local cmp= require('cmp')
+
+vim.g.snippets_dir = "snippets"
 require("luasnip.loaders.from_vscode").lazy_load()
+require("luasnip.loaders.from_snipmate").lazy_load()
 local cmp_select = { behavior = cmp.SelectBehavior.Select}
- cmp.setup({
+cmp.setup({
     mapping = cmp.mapping.preset.insert({
-      ['<C-b>'] = cmp.mapping.select_prev_item(cmp_select),
-      ['<C-f>'] = cmp.mapping.select_next_item(cmp_select),
+      ['<S-Tab>'] = cmp.mapping.select_prev_item(cmp_select),
+      ['<Tab>'] = cmp.mapping.select_next_item(cmp_select),
       ['<C-Space>'] = cmp.mapping.complete(),
       ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
     }),
