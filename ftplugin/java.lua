@@ -11,8 +11,6 @@ local plugins_dir = jdtls_dir .. '/plugins'
 local path_to_jar = plugins_dir ..  '/org.eclipse.equinox.launcher_1.6.600.v20231106-1826.jar'
 local path_to_lombok = jdtls_dir .. '/lombok.jar' 
 vim.env.LOMBOK_JAR = path_to_lombok
-print(path_to_lombok)
-
 
 local root_markers = {'.git', 'mvnw', 'gradlew', "pom.xml", "build.gradle"} 
 -- local root_dir = require('jdtls.setup').find_root(root_markers)
@@ -29,12 +27,10 @@ local function find_root_dir()
 end
 
 local root_dir = find_root_dir()
-print("root_dir: " .. root_dir)
+-- print("root_dir: " .. root_dir)
 
 local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ':p:h:t')
-print("Project name is " .. project_name)
 local workspace_dir = vim.fn.stdpath('data') .. '/site/java/workspace-root/' ..  project_name
-print("Directory  name is " .. workspace_dir)
 os.execute("mkdir " .. workspace_dir)
 
 -- The nvim-cmp almost supports LSP's capabilities so You should advertise it to LSP servers..
@@ -48,8 +44,8 @@ if not success then
 end
 
 
-local on_attach = function() 
-    keymaps.map_java_keys()
+local on_attach = function(_, bufnr) 
+    keymaps.map_java_keys({buffer =bufnr})
 end
 vim.cmd('cd ' .. root_dir) 
 
@@ -61,7 +57,7 @@ local config = {
 	'-Declipse.product=org.eclipse.jdt.ls.core.product',
 	'-Dlog.level=ALL',
 	'-javaagent:' .. tostring(vim.fn.getenv('LOMBOK_JAR')),
-	'-Xmx1G',
+	'-Xmx2G',
 	'--add-modules=ALL-SYSTEM',
 	'--add-opens','java.base/java.util=ALL-UNNAMED',
 	'--add-opens','java.base/java.lang=ALL-UNNAMED',
@@ -76,7 +72,7 @@ local config = {
     on_attach = on_attach,
   settings = {
     java = {
-      home = jdkPath11,
+      home = jdkPath17,
       eclipse = {
         downloadSources = true,
       },

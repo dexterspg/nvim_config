@@ -63,7 +63,7 @@ nvim_tree.setup {
 
 	actions = {
 		open_file ={
-			quit_on_open = true, -- not working 
+			quit_on_open = false, -- not working 
 		}
 	}
 }

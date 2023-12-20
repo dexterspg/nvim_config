@@ -3,6 +3,7 @@ node_modules/
 ./*.html
 
 # Java
+./*.java
 
 # Compiled class file
 *.class

@@ -1,7 +1,8 @@
+import java.util.LinkedList;
 
 interface  User{
    void f1(); 
-faawf   
+  
 
 }
 
@@ -11,7 +12,7 @@ faawf
 class Gamer implements  User{
 
 	int id;
-
+	
 	public Gamer() {
 	}
 
@@ -25,11 +26,11 @@ class Gamer implements  User{
 	
 }
 
-public class Test{
+public class Demo{
 
 	public void main(String [] args){
 
-     	new ArrayList<String>();
+     	//new ArrayList<String>();
 		Gamer game = new Gamer();
         		
 		game.f1();

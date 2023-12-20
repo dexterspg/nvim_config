@@ -1,0 +1,40 @@
+## Create a Method
+snippet m
+	${1:void} ${2:method}(${3}) ${4:throws }
+##
+## Create a Variable
+snippet v
+	${1:String} ${2:var}${3: = null}${4};
+##
+## Declaration for ArrayList
+snippet d.al
+	List<${1:Object}> ${2:list} = new ArrayList<$1>();${0}
+## Declaration for HashMap
+snippet d.hm
+	Map<${1:Object}, ${2:Object}> ${3:map} = new HashMap<$1, $2>();${0}
+
+
+## Nakisa
+
+snippet nk.log.generic
+	logger.info("------------------------> ${1} id  :::  " + ${2:unit}${3} + " ::: " + ${2}.getObjectId());
+	
+snippet nk.log.th
+	logger.info("------------------------> ${1} id  :::  " + ${2:th}.getObjectId());
+	
+snippet nk.log.ti
+	logger.info("------------------------> ${1} id  :::  " + ${2:ti}.getObjectId());
+	
+snippet nk.log.tipc
+	logger.info("------------------------> ${1} id  :::  " + ${2:tipc}.getObjectId());
+
+snippet nk.log.contract
+	logger.info("------------------------> DT_Contract id  :::  " + ${2:contract}.getContractId() + " ::: " + ${2}.getObjectId());
+
+snippet nk.log.ag
+	logger.info("------------------------> DT_ActivationGroup id  :::  " + ${2:ag}.getContractId() + " ::: " + ${2}.getObjectId());
+
+snippet nk.log.unit
+	logger.info("------------------------> DT_Unit id  :::  " + ${2:unit}.getUnitId() + " ::: " + ${2}.getObjectId());
+
+	

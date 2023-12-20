@@ -12,7 +12,7 @@ if not success then
   return
 end
 
-local on_attach = function() keymaps.map_lsp_keys() end
+local on_attach = function(_, bufnr) keymaps.map_lsp_keys({ buffer = bufnr}) end
 
 lspconfig.tsserver.setup{
 	cmd = { mason_path .. "/typescript-language-server.cmd", "--stdio"},

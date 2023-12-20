@@ -2,14 +2,14 @@ local M = {}
 -- keymaps = P
 
 local lspconfig = require('lspconfig')
-opts = { noremap = true, silent = true }
+--opts = { noremap = true, silent = true }
 
-function M.map_lsp_keys()
+function M.map_lsp_keys(opts)
 	-- Enable completion triggered by <c-x><c-o>
 	--vim.bo[bufnr].omnifunc = 'v:lua.vim.lsp.omnifunc'
 	-- Buffer local mappings.
 	-- See `:help vim.lsp.*` for documentation on any of the below functions
-	-- local opts = { buffer = bufnr }
+	--local opts = { buffer = bufnr }
 	vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
 	vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
 	vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
@@ -35,9 +35,9 @@ function M.map_lsp_keys()
 	vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist)
 end
 
-function M.map_java_keys()
+function M.map_java_keys(opts)
 	print("calling map_java keys")
-	M.map_lsp_keys()
+	M.map_lsp_keys(opts)
 
 	local spring_boot_run = 'mvn spring-boot:run -Dspring-boot.run.profiles=local'
 	local command = ':lua require("toggleterm").exec("' .. spring_boot_run .. '")<CR>'

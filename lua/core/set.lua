@@ -33,10 +33,10 @@ end
 keymap('i','jk', "<ESC>")
 
 -- window navigation
-keymap('n', "<C-j>", "<C-w>j")
-keymap('n', "<C-l>", "<C-w>l")
-keymap('n', "<C-g>", "<C-w>h")
-keymap('n', "<C-k>", "<C-w>k")
+--keymap('n', "<C-j>", "<C-w>j")
+--keymap('n', "<C-l>", "<C-w>l")
+--keymap('n', "<C-g>", "<C-w>h")
+--keymap('n', "<C-k>", "<C-w>k")
 
 -- Resize
 keymap('n', "<C-Up>", ":resize +2<CR>")
@@ -57,3 +57,14 @@ keymap('v', '<A-j>',":m '>+1<CR>gv=gv")
 keymap('v', '<A-k>',":m '<-2<CR>gv=gv")
 
 
+-- toggle paste
+_G.toggle_paste = function ()
+  if vim.o.paste then
+	    vim.cmd('set nopaste')
+    print('Paste mode disabled')
+  else
+    vim.cmd('set paste')
+    print('Paste mode enabled')
+  end
+end
+keymap('n', '<leader>tp', '<cmd>lua toggle_paste()<cr>')
