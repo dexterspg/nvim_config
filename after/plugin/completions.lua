@@ -14,13 +14,15 @@ end
 
 local cmp_select = { behavior = cmp.SelectBehavior.Select, select = true }
 
+
+
 cmp.setup({
 	mapping = cmp.mapping.preset.insert({
 		--      ['<Tab>'] = cmp.mapping.select_next_item(cmp_select),
 		--    ['<S-Tab>'] = cmp.mapping.select_prev_item(cmp_select),
 		['<C-Space>'] = cmp.mapping.complete(),
 		['<CR>'] = cmp.mapping.confirm({
-			behavior = cmp.ConfirmBehavior.Select,
+			behavior = cmp.SelectBehavior.Select,
 			select = true
 		}),
 		["<leader><Tab>"] = function()

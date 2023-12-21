@@ -16,9 +16,11 @@ local plugins = {
 
 	--  'wbthomason/packer.nvim',
 
+	-- navigation
 	'stevearc/oil.nvim',
 	'nvim-tree/nvim-tree.lua',
 	'nvim-tree/nvim-web-devicons',
+
 	'nvim-lualine/lualine.nvim',
 	-- 'vim-airline/vim-airline',
 	-- 'preservim/nerdtree',
@@ -40,7 +42,7 @@ local plugins = {
 	'hrsh7th/cmp-buffer',
 
 	--Snippets
-	{'L3MON4D3/LuaSnip', version="v2.*"},
+	{ 'L3MON4D3/LuaSnip', version = "v2.*" },
 	'rafamadriz/friendly-snippets',
 	'saadparwaiz1/cmp_luasnip',
 
@@ -48,6 +50,13 @@ local plugins = {
 	'nvim-treesitter/nvim-treesitter',
 	'nvim-treesitter/playground',
 	'nvim-treesitter/nvim-treesitter-textobjects',
+
+	-- add this to your lua/plugins.lua, lua/plugins/init.lua,  or the file you keep your other plugins:
+	{
+		'numToStr/Comment.nvim',
+		lazy = false,
+	},
+
 
 	'windwp/nvim-ts-autotag',
 	'mattn/emmet-vim',
@@ -66,10 +75,10 @@ local plugins = {
 	},
 	{
 		'rebelot/kanagawa.nvim',
-		 config = function() vim.cmd('colorscheme kanagawa-dragon') end
+		config = function() vim.cmd('colorscheme kanagawa-dragon') end
 	},
 	'ellisonleao/gruvbox.nvim',
-	'xiyaowong/transparent.nvim'
+--	'xiyaowong/transparent.nvim'
 }
 
 local opts = {}
