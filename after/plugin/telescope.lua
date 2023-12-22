@@ -2,9 +2,11 @@ local telescope = require('telescope')
 local builtin = require('telescope.builtin')
 
 telescope.setup({
-	file_ignore_patterns = {".git/", ".cache", "%.o", "%.a", "%.out", "%.class",
-				"%.pdf", "%.mkv", "%.mp4", "%.zip",".gitignore" },	
-
+    defaults = {
+         file_ignore_patterns = {
+            ".git/*", ".class", 'node_modules/*',
+        }
+    },
 });
 vim.keymap.set('n', '<leader>pf', builtin.find_files, { desc = '[S]earch [F]iles'})
 vim.keymap.set('n', '<leader>?', builtin.oldfiles, { desc = '[F]ind [R]ecently [O]pen [F]iles'})

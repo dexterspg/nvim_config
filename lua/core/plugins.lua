@@ -36,6 +36,7 @@ local plugins = {
 	'williamboman/mason.nvim',
 	'williamboman/mason-lspconfig.nvim',
 	'neovim/nvim-lspconfig',
+
 	-- Autocompletion plugin
 	'hrsh7th/nvim-cmp',
 	'hrsh7th/cmp-nvim-lsp',
@@ -51,19 +52,22 @@ local plugins = {
 	'nvim-treesitter/playground',
 	'nvim-treesitter/nvim-treesitter-textobjects',
 
-	-- add this to your lua/plugins.lua, lua/plugins/init.lua,  or the file you keep your other plugins:
 	{
 		'numToStr/Comment.nvim',
 		lazy = false,
 	},
 
-
 	'windwp/nvim-ts-autotag',
-	'mattn/emmet-vim',
+	-- 'mattn/emmet-vim',
 	{
 		'windwp/nvim-autopairs',
 		event = "InsertEnter",
 	},
+    {
+        'kylechui/nvim-surround',
+        event="VeryLazy"
+    },
+
 
 	-- {'akinsho/toggleterm.nvim', version = "*", config = true},
 	'akinsho/toggleterm.nvim',
