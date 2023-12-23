@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 node_modules/
 ./*.py
 ./*.html
@@ -208,3 +209,13 @@ luac.out
 *.x86_64
 *.hex
 
+=======
+tt.*
+.tests
+doc/tags
+debug
+.repro
+foo.*
+*.log
+data
+>>>>>>> d8769e1 (feat: initial commit)
