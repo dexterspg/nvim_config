@@ -154,6 +154,7 @@ return {
         "typescript",
         "vim",
         "yaml",
+        "jdtls",
       },
     },
   },
