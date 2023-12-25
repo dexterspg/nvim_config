@@ -5,4 +5,6 @@ return {
   opts = {
     transparent = true,
   },
+
+  "rebelot/kanagawa.nvim",
 }
