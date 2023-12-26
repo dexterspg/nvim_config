@@ -1,4 +1,5 @@
---vim.cmd[[colorscheme industry]] 
+local M = {}
+function M.custom_keys()
 -- Map the leader key to spacebar
 vim.g.mapleader = ' '
 vim.g.maplocalleader=' '
@@ -39,53 +40,50 @@ vim.o.cursorline=true   -- not working
 -- Define register content
 --vim.cmd('let @a = "iSystem.out.println("')  
 --
+end
 
-
+function M.mappings()
 local opts = { noremap = true, silent = true}
 
-local function keymap(mode, shortcut, key)
-	vim.keymap.set(mode, shortcut, key, opts)
-end
--- Use netrw
--- vim.keymap.set('n', '<leader>pv', vim.cmd.Ex)
+keymap = vim.keymap 
 
 -- Insert --
-keymap('i','jk', "<ESC>")
+keymap.set('i','jk', "<ESC>", opts)
 
 -- window navigation
---keymap('n', "<C-j>", "<C-w>j")
---keymap('n', "<C-l>", "<C-w>l")
---keymap('n', "<C-g>", "<C-w>h")
---keymap('n', "<C-k>", "<C-w>k")
+--keymap.set('n', "<C-j>", "<C-w>j")
+--keymap.set('n', "<C-l>", "<C-w>l")
+--keymap.set('n', "<C-g>", "<C-w>h")
+--keymap.set('n', "<C-k>", "<C-w>k")
 
 -- Resize
-keymap('n', "<C-Up>", ":resize +2<CR>")
-keymap('n', "<C-Down>", ":resize -2<CR>")
-keymap('n', "<C-Left>", ":vertical resize -2<CR>")
-keymap('n', "<C-Right>", ":vertical resize +2<CR>")
+keymap.set('n', "<C-Up>", ":resize +2<CR>", opts)
+keymap.set('n', "<C-Down>", ":resize -2<CR>", opts)
+keymap.set('n', "<C-Left>", ":vertical resize -2<CR>", opts)
+keymap.set('n', "<C-Right>", ":vertical resize +2<CR>", opts)
 
 -- navigate buffers
-keymap('n', "<S-l>", ":bnext<CR>")
-keymap('n', "<S-h>", ":bprevious<CR>")
+keymap.set('n', "<S-l>", ":bnext<CR>", opts)
+keymap.set('n', "<S-h>", ":bprevious<CR>", opts)
 
 --Move line up and down
-keymap('n', '<A-k>','<esc>:m-2<CR>')
-keymap('n', '<A-j>','<esc>:m+1<CR>')
+keymap.set('n', '<A-k>','<esc>:m-2<CR>', opts)
+keymap.set('n', '<A-j>','<esc>:m+1<CR>', opts)
 
 -- Center cursor to middle of screen
-keymap('n', '<C-d>','<C-d>zz')
-keymap('n', '<C-u>','<C-u>zz')
+keymap.set('n', '<C-d>','<C-d>zz', opts)
+keymap.set('n', '<C-u>','<C-u>zz', opts)
 
 -- Paste over visual not modified
-keymap('x', '<leader>p','\"_dP')
+keymap.set('x', '<leader>p','\"_dP', opts)
 
 --Move paragraph up and down
-keymap('v', '<A-j>',":m '>+1<CR>gv=gv")
-keymap('v', '<A-k>',":m '<-2<CR>gv=gv")
+keymap.set('v', '<A-j>',":m '>+1<CR>gv=gv", opts)
+keymap.set('v', '<A-k>',":m '<-2<CR>gv=gv", opts)
 
 
-keymap({'n', 'v'}, '<leader>y',"\"+y")
-keymap({'n', 'v'}, '<leader>Y',"\"+Y")
+keymap.set({'n', 'v'}, '<leader>y',"\"+y", opts)
+keymap.set({'n', 'v'}, '<leader>Y',"\"+Y", opts)
 
 -- toggle paste
 _G.toggle_paste = function ()
@@ -97,5 +95,13 @@ _G.toggle_paste = function ()
     print('Paste mode enabled')
   end
 end
-keymap('n', '<leader>tp', '<cmd>lua toggle_paste()<cr>')
 
+keymap.set('n', '<leader>tp', '<cmd>lua toggle_paste()<cr>')
+end
+
+function M.start()
+    M.custom_keys()
+    M.mappings()
+end
+
+return M

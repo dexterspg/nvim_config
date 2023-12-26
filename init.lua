@@ -1,3 +1,2 @@
-require("core/set")
-require("core/plugins")
-require("core/remap")
+require('config.keymaps').start()
+require('config.lazy')
