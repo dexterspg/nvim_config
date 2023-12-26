@@ -2,7 +2,7 @@ vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
 local opts = { noremap = true, silent = true }
-vim.keymap.set('n', '<leader>e', ':NvimTreeFindFileToggle<CR>', opts)
+vim.keymap.set('n', '<leader>n', ':NvimTreeFindFileToggle<CR>', opts)
 
 return {
     'nvim-tree/nvim-tree.lua',

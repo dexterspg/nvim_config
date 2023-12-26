@@ -11,6 +11,7 @@ return {
 
         vim.keymap.set('n', '<leader>pf', builtin.find_files, { desc = '[S]earch [F]iles' })
         vim.keymap.set('n', '<leader>?', builtin.oldfiles, { desc = '[F]ind [R]ecently [O]pen [F]iles' })
+        vim.keymap.set('n', '<leader>uC', builtin.colorscheme, { desc = 'Preview colorscheme' })
 
         -- vim.keymap.set('n', '<C-p>', builtin.git_files, {})
         vim.keymap.set('n', '<leader>ps', function()
@@ -21,12 +22,18 @@ return {
                 vim.api.nvim_echo({ { "No search word provided.", "WarningMsg" } }, true, {})
             end
         end)
-        telescope.setup({
-            defaults = {
-                file_ignore_patterns = {
-                    "^.git/", ".class", 'node_modules/*',
-                }
-            },
-        })
     end,
+    opts = {
+        defaults = {
+            file_ignore_patterns = {
+                "^.git/", ".class", 'node_modules/*',
+            }
+        },
+        pickers = {
+            colorscheme = {
+                enable_preview = true
+            }
+        },
+
+    }
 }
