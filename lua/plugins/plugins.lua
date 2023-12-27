@@ -4,8 +4,8 @@ return {
 	-- 'vim-airline/vim-airline',
 	-- 'preservim/nerdtree',
 
-    'mfussenegger/nvim-jdtls',
-    'neovim/nvim-lspconfig',
+    --'mfussenegger/nvim-jdtls',
+    -- 'neovim/nvim-lspconfig',
 
 	-- 'williamboman/mason.nvim',
 	-- 'williamboman/mason-lspconfig.nvim',

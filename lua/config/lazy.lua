@@ -13,7 +13,7 @@ vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
 
 local plugins = {
 	spec = {
-		{ import = 'plugins'}, 
+		{ import = 'plugins'},
 		{ import = 'plugins.lsp'},
 	},
     install = { },

@@ -1,2 +1,2 @@
-require('config.keymaps').start()
+require('config.set').start()
 require('config.lazy')
