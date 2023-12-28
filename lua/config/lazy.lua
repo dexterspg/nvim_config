@@ -17,7 +17,7 @@ local plugins = {
 		{ import = 'plugins.lsp'},
 	},
     install = { },
-    checker =  { enabled = true},
+    checker =  { enabled = true, notify =false},
 }
 local opts = {}
 require("lazy").setup(plugins, opts)

@@ -75,5 +75,17 @@ return {
                 }
             }
         }
+
+        lspconfig.volar.setup {
+            cmd = { mason_path .. "/vue-language-server.cmd", "--stdio" },
+            on_attach = on_attach,
+            capabilities = capabilities,
+
+            settings = {
+                python = {
+                    pythonPath = path_to_python
+                }
+            }
+        }
     end
 }

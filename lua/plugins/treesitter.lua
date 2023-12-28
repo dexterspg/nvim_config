@@ -7,6 +7,7 @@ return {
             event = "LazyFile"
         },
         'nvim-treesitter/nvim-treesitter-textobjects',
+        'nvim-treesitter/nvim-treesitter-context'
     },
     build = ":TSUpdate",
     event = { "LazyFile", "VeryLazy" },
@@ -17,7 +18,7 @@ return {
         if not ok then return end
 
         ts.setup {
-            ensure_installed = { "c", "vim", "lua", "vimdoc", "javascript", "typescript", "css", "java", "html", "python" },
+            ensure_installed = { "c", "vim", "lua", "vimdoc", "javascript", "typescript", "css", "java", "html", "python", "vue" },
             sync_install = false,
             ignore_install = { " " },
             auto_install = true,
@@ -88,6 +89,10 @@ textobjects = {
       },		
   },
   ]=]
+        }
+
+        require'treesitter-context'.setup {
+
         }
     end,
     keys = {
