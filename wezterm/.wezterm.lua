@@ -8,34 +8,29 @@ local act = wezterm.action
 --     window:gui_window():maximize()
 -- end)
 
--- if wezterm.config_builder then
---     config = wezterm.config_builder()
--- end
+local config = {}
+if wezterm.config_builder then
+    config = wezterm.config_builder()
+end
 
-return {
 
+config.default_prog = { "C:\\Program Files\\Git\\bin\\bash.exe", "-i", "-l" }
 
-default_prog = { "C:\\Program Files\\Git\\bin\\bash.exe", "-i", "-l" },
--- This is where you actually apply your config choices
-
--- For example, changing the color scheme:
- color_scheme = 'Dracula',
- font = wezterm.font 'JetBrainsMono Nerd Font Mono',
- font_size = 12,
- window_background_opacity = 0.9,
- bold_brightens_ansi_colors = 'BrightOnly',
- window_decorations='NONE',
+config.color_scheme = 'Dracula'
+config.font = wezterm.font('JetBrainsMono Nerd Font Mono', { weight = 'Bold'})
+config.font_size = 12
+config.window_background_opacity = 0.6
+config.bold_brightens_ansi_colors = 'BrightOnly'
+config.window_decorations = 'NONE'
 --  initial_rows =100
 --  initial_cols =100
- window_padding = {
+config.window_padding = {
     left = 0,
     right = 0,
     top = 0,
     bottom = 0
-},
-
-
- keys = {
+}
+config.keys = {
     {
         key = 'n',
         mods = 'SHIFT|CTRL',
@@ -43,7 +38,4 @@ default_prog = { "C:\\Program Files\\Git\\bin\\bash.exe", "-i", "-l" },
     },
 }
 
-
-}
-
-
+return config
