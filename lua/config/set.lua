@@ -21,6 +21,7 @@ vim.o.incsearch = true
 
 vim.o.mouse= true
 vim.o.guicursor= ""
+vim.o.termguicolors= true
 
 
 vim.o.swapfile = false

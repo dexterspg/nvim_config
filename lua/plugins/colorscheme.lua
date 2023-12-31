@@ -2,17 +2,17 @@ return {
 
     {
         'catppuccin/nvim',
-        name ='catppuccin',
+        name = 'catppuccin',
         lazy = false,
         priority = 1000,
-        config = function() 
-            vim.cmd('colorscheme catppuccin');
+            config = function()
+                vim.cmd('colorscheme catppuccin');
 
-            require('catppuccin').setup({
-                transparent_background=false,
-                term_colors = false,
-            })
-        end
+                require('catppuccin').setup({
+                    transparent_background=true,
+                    -- term_colors = false,
+                })
+            end
     },
     {
         'folke/tokyonight.nvim',
@@ -21,12 +21,12 @@ return {
     },
     {
         'rebelot/kanagawa.nvim',
-        lazy =  false,
-        -- priority = 1000,
+        lazy = false,
+        priority = 1000,
         config = function()
-            vim.cmd('colorscheme kanagawa') 
-            vim.cmd('hi TelescopeBorder guibg=none') 
-            vim.cmd('hi TelescopeTitle guibg=none') 
+            vim.cmd('colorscheme kanagawa')
+            vim.cmd('hi TelescopeBorder guibg=none')
+            vim.cmd('hi TelescopeTitle guibg=none')
         end
 
     },
@@ -36,6 +36,14 @@ return {
         lazy = true,
 
     },
+    {
+        'doki-theme/doki-theme-vim',
+        lazy = true,
+        priority = 1000,
+        config = function()
+            vim.cmd('colorscheme megumin')
+        end
 
+    }
 
 }
