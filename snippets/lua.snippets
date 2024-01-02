@@ -5,11 +5,24 @@ snippet fun
 
 snippet plugin
 	return {
-
+		'$1',
 		config = function()
+			local $2 = require('$2');
 
-		end
+			$2.setup({
+
+				})
+			end
 	}
+
+snippet conf
+	config = function()
+		local $2 = require('$2');
+	
+			$2.setup({
+
+				})
+	end
 		
 		
 		
