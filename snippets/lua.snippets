@@ -3,26 +3,36 @@ snippet fun
 		$0
 	end
 
-snippet plugin
+snippet returnplugin
 	return {
 		'$1',
 		config = function()
 			local $2 = require('$2');
 
-			$2.setup({
-
+		${3:$2.setup({
+				$4
 				})
-			end
+		end,}
 	}
 
-snippet conf
+snippet returnplugin2
+	return {
+		'$1',
 	config = function()
 		local $2 = require('$2');
 	
 			$2.setup({
-
+				$1
 				})
-	end
+	end,
+	keymaps = {
+		$3
+	},
+
+snippet depen
+	dependencies = {
+		$1
+	},
 		
 		
 		
