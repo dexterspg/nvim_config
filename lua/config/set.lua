@@ -32,7 +32,7 @@ vim.o.undodir = os.getenv("HOME") .. ".vim/undodir"
 vim.o.wrap = false
 
 
-vim.o.cursorline=true   -- not working
+vim.o.cursorline=false   -- not working
 
 -- vim.api.nvim_set_hl(0, "Normal", { bg = "none"})
 -- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
