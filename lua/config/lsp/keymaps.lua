@@ -27,7 +27,7 @@ function M.map_lsp_keys(opts)
     vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
     vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
     vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
-    vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist)
+    vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist) -- trouble vim used for entire workspace
 end
 
 function M.map_java_keys(opts)

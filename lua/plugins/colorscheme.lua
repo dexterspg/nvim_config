@@ -9,7 +9,7 @@ return {
                 vim.cmd('colorscheme catppuccin');
 
                 require('catppuccin').setup({
-                    transparent_background=true,
+                    -- transparent_background=true,
                     -- term_colors = false,
                 })
             end
@@ -25,8 +25,8 @@ return {
         priority = 1000,
         config = function()
             vim.cmd('colorscheme kanagawa')
-            vim.cmd('hi TelescopeBorder guibg=none')
-            vim.cmd('hi TelescopeTitle guibg=none')
+            -- vim.cmd('hi TelescopeBorder guibg=none')
+            -- vim.cmd('hi TelescopeTitle guibg=none')
         end
 
     },

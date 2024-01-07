@@ -1,6 +1,9 @@
 return {
 	'nvim-pack/nvim-spectre',
-	build = false,
+    dependencies={
+        'nvim-lua/plenary.nvim',
+        'BurntSushi/ripgrep',
+    },
 	cmd = "Spectre",
 	-- config = function()
 	-- 	local spectre = require('spectre');
