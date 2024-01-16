@@ -18,21 +18,22 @@ config.set_environment_variables = {
 config.color_scheme = 'Dracula'
 config.font = wezterm.font('JetBrainsMono Nerd Font Mono', { weight = 'Bold' })
 config.font_size = 12
-config.window_background_opacity = 0.6
+config.window_background_opacity = 0.7
 config.bold_brightens_ansi_colors = 'BrightOnly'
 config.window_decorations = 'NONE'
 config.window_close_confirmation = "AlwaysPrompt"
+config.enable_tab_bar=false
 --  initial_rows =100
 --  initial_cols =100
 --
 --
 --
 -- Dim inactive panes
-config.inactive_pane_hsb = {
-    saturation = 0.24,
-    brightness = 0.5
-}
-
+-- config.inactive_pane_hsb = {
+--     saturation = 0.24,
+--     brightness = 0.5
+-- }
+--
 config.window_padding = { left = 0, right = 0, top = 0, bottom = 0 }
 config.leader = { key = "a", mods = "CTRL", timeout_milliseconds = 1000 }
 config.keys = {

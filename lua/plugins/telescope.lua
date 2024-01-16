@@ -35,12 +35,14 @@ return {
                 defaults = {
                     file_ignore_patterns = {
                         "^.git/", ".class", 'node_modules/*',
-                    }
+                    },
+                    layout_strategy='vertical',
                 },
                 pickers = {
                     colorscheme = {
                         enable_preview = true
-                    }
+                    },
+                    
                 },
             })
         -- TODO: telescope fzf

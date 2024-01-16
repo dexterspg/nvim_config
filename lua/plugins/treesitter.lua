@@ -1,5 +1,6 @@
 return {
 	'nvim-treesitter/nvim-treesitter',
+    event = { "BufReadPost", "BufNewFile"},
 	dependencies = {
 		'nvim-treesitter/playground',
 		'windwp/nvim-ts-autotag',
@@ -19,7 +20,7 @@ return {
 			highlight = {
 				enable = true,
 				disable = { "" },
-				-- additional_vim_regex_highlighting = false,
+				additional_vim_regex_highlighting = false,
 			},
 			autotag = {
 				enable = true,
@@ -131,3 +132,4 @@ return {
 		}
 	end,
 }
+

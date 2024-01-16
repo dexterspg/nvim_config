@@ -1,22 +1,23 @@
 return {
 
+
     {
         'catppuccin/nvim',
         name = 'catppuccin',
         lazy = false,
             config = function()
-                vim.cmd('colorscheme catppuccin');
+                -- vim.cmd('colorscheme catppuccin');
 
-                require('catppuccin').setup({
+                -- require('catppuccin').setup({
                     -- transparent_background=true,
                     -- term_colors = false,
-                })
+                -- })
             end
     },
     {
         'folke/tokyonight.nvim',
-        lazy = true,
-        -- config = function() vim.cmd('colorscheme tokyonight-moon') end
+        -- lazy = true,
+        config = function() vim.cmd('colorscheme tokyonight-moon') end
     },
     {
         'rebelot/kanagawa.nvim',
