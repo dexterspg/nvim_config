@@ -13,6 +13,8 @@ return {
         local builtin = require('telescope.builtin')
 
         vim.keymap.set('n', '<leader>pf', builtin.find_files, { desc = '[S]earch [F]iles' })
+        -- TODO: find files in cwd where the file you opened belongs to
+        vim.keymap.set('n', '<leader>pF', builtin.find_files,  { desc = '[S]earch [F]iles cwd' })
         vim.keymap.set('n', '<leader>?', builtin.oldfiles, { desc = '[F]ind [R]ecently [O]pen [F]iles' })
         vim.keymap.set('n', '<leader>uC', builtin.colorscheme, { desc = 'Preview colorscheme' })
         vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = 'Search keymaps' })

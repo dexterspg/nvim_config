@@ -17,7 +17,7 @@ return {
     {
         'folke/tokyonight.nvim',
         -- lazy = true,
-        config = function() vim.cmd('colorscheme tokyonight-moon') end
+        config = function() vim.cmd('colorscheme tokyonight') end
     },
     {
         'rebelot/kanagawa.nvim',

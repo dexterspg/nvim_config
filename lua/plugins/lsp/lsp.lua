@@ -4,6 +4,7 @@ return {
     dependencies = {
         'mfussenegger/nvim-jdtls',
         'hrsh7th/cmp-nvim-lsp',
+        'folke/neodev.nvim',
     },
     config = function()
         local lspconfig = require("lspconfig")
@@ -30,23 +31,6 @@ return {
             capabilities = capabilities
         }
 
-        lspconfig.lua_ls.setup {
-            cmd          = { mason_path .. "/lua-language-server.cmd", "--stdio" },
-            filetypes    = { "lua" },
-            on_attach    = on_attach,
-            capabilities = capabilities,
-            root_dir     = function() return vim.loop.cwd() end,
-            settings     = {
-                Lua = {
-                    runtime = {
-                        version = 'luaJIT'
-                    },
-                    diagnostics = {
-                        globals = { 'vim' }
-                    },
-                }
-            }
-        }
 
         lspconfig.html.setup {
             cmd = { mason_path .. "/vscode-html-language-server.cmd", "--stdio" },
@@ -69,6 +53,7 @@ return {
             on_attach = on_attach,
             capabilities = capabilities,
 
+            root_dir = function() return vim.loop.cwd() end,
             settings = {
                 python = {
                     pythonPath = path_to_python
@@ -80,10 +65,25 @@ return {
             cmd = { mason_path .. "/vue-language-server.cmd", "--stdio" },
             on_attach = on_attach,
             capabilities = capabilities,
+            root_dir = function() return vim.loop.cwd() end,
 
-            settings = {
-                python = {
-                    pythonPath = path_to_python
+        }
+
+        require("neodev").setup()
+        lspconfig.lua_ls.setup {
+            cmd          = { mason_path .. "/lua-language-server.cmd", "--stdio" },
+            filetypes    = { "lua" },
+            on_attach    = on_attach,
+            capabilities = capabilities,
+            root_dir     = function() return vim.loop.cwd() end,
+            settings     = {
+                Lua = {
+                    runtime = {
+                        version = 'luaJIT'
+                    },
+                    diagnostics = {
+                        globals = { 'vim' }
+                    },
                 }
             }
         }
