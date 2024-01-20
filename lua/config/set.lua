@@ -11,12 +11,12 @@ function M.custom_keys()
     vim.opt.tabstop = 4
     vim.opt.softtabstop = 4
     vim.opt.expandtab = true
-    vim.opt.splitbelow= true
-    vim.opt.splitright= true
+    vim.opt.splitbelow = true
+    vim.opt.splitright = true
 
     vim.opt.smartindent = true
     vim.opt.smartcase = true
-    vim.opt.ignorecase= true
+    vim.opt.ignorecase = true
 
     vim.opt.hlsearch = false
     vim.opt.incsearch = true
@@ -36,12 +36,12 @@ function M.custom_keys()
 
     --improve performance
     vim.opt.cursorline = false
-    vim.opt.updatetime= 100
-    vim.opt.timeoutlen=1000
+    vim.opt.updatetime = 100
+    vim.opt.timeoutlen = 1000
     -- vim.opt.lazyredraw = true
     -- vim.opt.ttyfast = true
 
-    vim.opt.completeopt = { "menuone", "noselect"}
+    vim.opt.completeopt = { "menuone", "noselect" }
     vim.opt.clipboard = "unnamedplus"
     -- vim.api.nvim_set_hl(0, "Normal", { bg = "none"})
     -- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
@@ -62,19 +62,24 @@ function M.mappings()
     keymap.set('i', 'jk', "<ESC>", opts)
 
     keymap.set('n', '00', "0w", opts)
-    keymap.set('i', '<C-o>o', '<C-o>a', opts)
+    keymap.set('i', '<M-o>', '<C-o>a', opts)
 
     keymap.set('n', '<leader>j', "5j", opts)
     keymap.set('n', '<leader>jj', "10j", opts)
     keymap.set('n', '<leader>k', "5k", opts)
     keymap.set('n', '<leader>kk', "10k", opts)
 
+    -- clear buffers
+    keymap.set('n', '<leader>bd', "<cmd>%bd|e#<CR>", opts)
 
     -- window navigation
-    --keymap.set('n', "<C-j>", "<C-w>j")
-    --keymap.set('n', "<C-l>", "<C-w>l")
-    --keymap.set('n', "<C-g>", "<C-w>h")
-    --keymap.set('n', "<C-k>", "<C-w>k")
+    keymap.set('n', "<C-j>", "<C-w>j", opts)
+    keymap.set('n', "<C-l>", "<C-w>l", opts)
+    keymap.set('n', "<BS>", "<C-w>h", opts) -- C-h  triggers <BS> in nvim
+    keymap.set('n', "<C-k>", "<C-w>k", opts)
+
+    keymap.set('n', "<leader>h", "<C-w>h", opts)
+    keymap.set('n', "<leader>l", "<C-w>l", opts)
 
     -- Resize
     keymap.set('n', "<C-Up>", ":resize +2<CR>", opts)
@@ -105,8 +110,8 @@ function M.mappings()
     keymap.set('v', '<A-k>', ":m '<-2<CR>gv=gv", opts)
 
     -- Indent block
-    keymap.set('v','<', '<gv', opts)
-    keymap.set('v','>', '>gv', opts)
+    keymap.set('v', '<', '<gv', opts)
+    keymap.set('v', '>', '>gv', opts)
 
     -- clipboard
     keymap.set({ 'n', 'v' }, '<leader>y', "\"+y", opts)
@@ -114,7 +119,7 @@ function M.mappings()
 
     -- toggle paste
     _G.toggle_paste = function()
-            vim.cmd('set nopaste')
+        vim.cmd('set nopaste')
         if vim.o.paste then
             print('Paste mode disabled')
         else
@@ -124,7 +129,7 @@ function M.mappings()
     end
 
     keymap.set('n', '<leader>tp', '<cmd>lua toggle_paste()<cr>')
-    keymap.set('n', '<leader>w', ':lua vim.wo.wrap= not vim.wo.wrap<CR>',opts)
+    keymap.set('n', '<leader>w', ':lua vim.wo.wrap= not vim.wo.wrap<CR>', opts)
 
     local signs = { Error = "", Warn = "", Hint = "", Info = "" }
     for type, icon in pairs(signs) do
@@ -137,7 +142,6 @@ function M.mappings()
     -- vim.cmd [[:amenu 10.110 mousemenu.References\ Definition <cmd>lua vim.lsp.buf.references()<CR>]]
     -- keymap.set('n', "<RightMouse>", "<cmd>:popup mousemenu<CR>")
     -- keymap.set('n', "<Tab>", "<cmd>:popup mousemenu<CR>")
-
 end
 
 function M.start()

@@ -1,0 +1,27 @@
+snippet export
+	export default{
+
+	}
+
+snippet state
+	state(){
+		return{
+			${1}	 	
+		};
+	},
+
+snippet data
+	data(){
+		return {
+			${1}
+		};
+	},
+
+snippet impj
+	import ${1} from './${1}${2:.js}';
+
+snippet impv
+	import ${1} from './${1}${2:.vue}';
+
+snippet impv2
+	import {${1}} from './${1}${2:.vue}';
