@@ -19,7 +19,8 @@ return {
         vim.keymap.set('n', '<leader>uC', builtin.colorscheme, { desc = 'Preview colorscheme' })
         vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = 'Search keymaps' })
         vim.keymap.set('n', '<leader>fs', builtin.live_grep, { desc = 'Find string in cwd' })
-        vim.keymap.set('n', '<leader>fc', builtin.grep_string, { desc = 'Serach  string under cursor in cwd' })
+        vim.keymap.set('n', '<leader>fc', builtin.grep_string, { desc = 'Search  string under cursor in cwd' })
+        vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = 'Search  in buffers' })
 
         -- vim.keymap.set('n', '<C-p>', builtin.git_files, {})
         -- vim.keymap.set('n', '<leader>ps', function()

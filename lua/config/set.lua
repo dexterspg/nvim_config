@@ -60,9 +60,14 @@ function M.mappings()
 
     --ESC
     keymap.set('i', 'jk', "<ESC>", opts)
-
     keymap.set('n', '00', "0w", opts)
-    keymap.set('i', '<M-o>', '<C-o>a', opts)
+
+    keymap.set('n', '<leader><C-s>', ":w<cr>", opts)
+    keymap.set('n', '<leader>a', "gg<S-v><S-g>", opts)
+    keymap.set('i', 'jk<space>', '<esc>la', opts)
+    keymap.set('i', 'jk;', '<esc>f;a', opts)
+    keymap.set('i', 'jk,', '<esc>f,a', opts)
+    keymap.set('i', 'jk)', '<esc>f)a', opts)
 
     keymap.set('n', '<leader>j', "5j", opts)
     keymap.set('n', '<leader>jj', "10j", opts)
