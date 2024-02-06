@@ -60,6 +60,7 @@ function M.mappings()
 
     --ESC
     keymap.set('i', 'jk', "<ESC>", opts)
+    keymap.set('v', 'jk', "<ESC>", opts)
     keymap.set('n', '00', "0w", opts)
 
     keymap.set('n', '<leader><C-s>', ":w<cr>", opts)
@@ -81,6 +82,7 @@ function M.mappings()
     keymap.set('n', "<C-j>", "<C-w>j", opts)
     keymap.set('n', "<C-l>", "<C-w>l", opts)
     keymap.set('n', "<BS>", "<C-w>h", opts) -- C-h  triggers <BS> in nvim
+    keymap.set('n', "<C-h>", "<C-w>h", opts) -- C-h  triggers <BS> in nvim
     keymap.set('n', "<C-k>", "<C-w>k", opts)
 
     keymap.set('n', "<leader>h", "<C-w>h", opts)

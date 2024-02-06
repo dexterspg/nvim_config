@@ -25,7 +25,7 @@ return {
 
         lspconfig.tsserver.setup {
             cmd = { mason_path .. "/typescript-language-server.cmd", "--stdio" },
-            filetypes = { "javascript", "typescript", "typescriptreact", "typescipt.tsx" },
+            filetypes = { "javascript", "typescript", "typescriptreact", "typescript.tsx" },
             root_dir = function() return vim.loop.cwd() end,
             on_attach = on_attach,
             capabilities = capabilities
@@ -63,6 +63,7 @@ return {
 
         lspconfig.volar.setup {
             cmd = { mason_path .. "/vue-language-server.cmd", "--stdio" },
+            filetypes= { "javascript","typescript", "vue" },
             on_attach = on_attach,
             capabilities = capabilities,
             root_dir = function() return vim.loop.cwd() end,

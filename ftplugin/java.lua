@@ -8,7 +8,7 @@ local mason_dir = nvim_data .. '/mason/packages'
 local jdtls_dir = mason_dir .. '/jdtls'
 local config_dir = jdtls_dir .. '/config_win'
 local plugins_dir = jdtls_dir .. '/plugins'
-local path_to_jar = plugins_dir .. '/org.eclipse.equinox.launcher_1.6.600.v20231106-1826.jar'
+local path_to_jar = plugins_dir .. '/org.eclipse.equinox.launcher_1.6.700.v20231214-2017.jar'
 local path_to_lombok = jdtls_dir .. '/lombok.jar'
 vim.env.LOMBOK_JAR = path_to_lombok
 
