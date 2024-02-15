@@ -1,0 +1,57 @@
+#paste to $HOME
+nnoremap <Space> <Nop>
+map <Space> <Leader>
+imap jk <esc>     
+vmap jk <esc>     
+nmap 00 0w
+nmap <Leader>j 5j
+nmap <Leader>k 5k
+nmap <Leader>s <Plug>(sneak_s)
+nmap <Leader>S <Plug>(sneak_S)
+nmap ; <Plug>(sneak-next)
+nmap , <Plug>(sneak-prev)
+vmap <Leader>s <Plug>(sneak_s)
+vmap Z <Plug>(sneak_S)
+vmap ; <Plug>(sneak-next)
+vmap , <Plug>(sneak-prev)
+nmap f <Plug>(sneak_f)
+nmap F <Plug>(sneak_F)
+nmap t <Plug>(sneak_t)
+nmap T <Plug>(sneak_T)
+vmap f <Plug>(sneak_f)
+vmap F <Plug>(sneak_F)
+vmap t <Plug>(sneak_t)
+vmap T <Plug>(sneak_T)
+omap z <Plug>(sneak_s)
+omap Z <Plug>(sneak_S)
+
+nmap <Leader>y \"+y" 
+vmap <Leader>y \"+y" 
+nmap <Leader>Y \"+Y" 
+vmap <Leader>Y \"+Y" 
+
+nnoremap <A-k> <Nop>
+nnoremap <A-j> <Nop>
+nmap <A-k> <esc>:m-2<cr>
+nmap <A-j> <esc>:m+1<cr>
+
+vnoremap <A-k> <Nop>
+vnoremap <A-j> <Nop>
+vmap <A-k> :m '<-2<CR>gv=gv
+vmap <A-j> :m '>+1<CR>gv=gv
+
+nnoremap <C-d> <Nop>
+nnoremap <C-u> <Nop>
+nmap <C-d> <C-d>zz
+nmap <C-u> <C-u>zz
+
+xnoremap <Leader>p "_dP
+vnoremap <Leader>p "_dP
+
+
+set autoindent
+set ignorecase
+set smartcase
+
+
+

@@ -13,6 +13,29 @@ snippet d.al
 snippet d.hm
 	Map<${1:Object}, ${2:Object}> ${3:map} = new HashMap<$1, $2>();${0}
 
+snippet classmain
+
+	class $TM_FILENAME_BASE {
+
+		public static void main(String[] args){
+			${1}
+		}
+
+	}
+
+
+snippet classtitle
+
+	class $TM_FILENAME_BASE {
+		${1}
+
+	}
+
+## ready examples
+
+snippet	ex.asList
+	List<String> grList = Arrays.asList("Hello", "Goodbye" , "Good Morning");
+	
 
 ## Nakisa
 

@@ -15,7 +15,9 @@ local plugins = {
     spec = {
         { import = 'plugins' },
         { import = 'plugins.lsp' },
-        { import = 'plugins.linter' },
+        { import = 'plugins.formatting' },
+        { import = 'plugins.debugging' },
+        -- { import = 'plugins.assistant' },
     },
     install = {},
     checker = { enabled = true, notify = false },

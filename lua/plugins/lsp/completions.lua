@@ -75,5 +75,11 @@ return {
         vim.keymap.set({ "i" }, "<C-k>", function() ls.expand() end, { silent = true })
         --vim.keymap.set({ "i", "s" }, "<C-n>", function() ls.expand_or_jump(1) end, { silent = true })
         --vim.keymap.set({ "i", "s" }, "<C-p>", function() ls.jump(-1) end, { silent = true })
+        --
+        require("cmp").setup.filetype({ "dap-repl", "dapui_watches", "dapui_hover" }, {
+              sources = {
+                    { name = "dap" },
+                  },
+        })
     end
 }
