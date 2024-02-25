@@ -34,6 +34,64 @@ snippet vcustom
 	<style scoped>
 
 	</style>
+
+snippet <temppartial-option
+	<template>
+	    ${0}
+	</template>
+
+	<script>
+		export default{
+			data(){
+				return{
+					${1}
+				};
+			}
+
+		}
+
+	</script>
+
+	<style scoped>
+
+	</style>
+
+snippet <templa
+	<template>
+		${1}
+	</template>
+
+snippet <script
+	<script>
+		${1}
+	</script>
+
+snippet <styl
+	<style ${1:scoped}>
+		${2}
+	</style>
+
+snippet <temppartial-composition
+	<template>
+		${0}	
+	</template>
+
+	<script>
+		export default{
+			setup(){
+				
+				return{
+					${1}
+				};
+			}
+		}
+
+	</script>
+
+	<style scoped>
+
+	</style>
+
 snippet import
 	import ${1} from '${2}';
 
@@ -56,6 +114,13 @@ snippet state
 		};
 	},
 
+snippet provide-opt
+	provide(){
+		return{
+			${0}:this.${0},
+		};
+	},
+
 snippet impj
 	import ${1} from './${1}${2:.js}';
 
@@ -67,3 +132,8 @@ snippet impv2
 
 snippet con
 	console.log(${1});
+
+snippet <slot
+	<slot>
+		${1}
+	</slot>
