@@ -17,7 +17,7 @@ local plugins = {
         { import = 'plugins.lsp' },
         { import = 'plugins.formatting' },
         { import = 'plugins.debugging' },
-        -- { import = 'plugins.assistant' },
+        { import = 'plugins.assistant.sourcegraph' },
     },
     install = {},
     checker = { enabled = true, notify = false },
