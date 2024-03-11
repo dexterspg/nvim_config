@@ -63,6 +63,12 @@ function run_spring_boot(debug)
     return ':lua require("toggleterm").exec([[' .. spring_boot_runner .. ']])<CR>'
 end
 
+function run_mvn()
+    -- TODO: run in togglet term 'mvn clean install exec:java' without changing the exec-maven-plugin with the class containing the main method
+    -- local spring_boot_runner=get_spring_boot_runner('local', debug)
+    -- return ':lua require("toggleterm").exec([[mvn clean install ' .. spring_boot_runner .. ']])<CR>'
+end
+
 function get_test_runner(test_name, debug)
     if debug then
         return 'mvn test -Dmaven.surefire.debug -Dtest="' .. test_name .. '"' 

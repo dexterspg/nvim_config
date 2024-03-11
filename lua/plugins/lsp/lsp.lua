@@ -48,18 +48,35 @@ return {
             root_dir = function() return vim.loop.cwd() end,
         }
 
+        -- lspconfig.pyright.setup {
+        --     cmd = { mason_path .. "/pyright-langserver.cmd", "--stdio" },
+        --     on_attach = on_attach,
+        --     capabilities = capabilities,
+        --
+        --     root_dir = function() return vim.loop.cwd() end,
+        --     settings = {
+        --         python = {
+        --             pythonPath = path_to_python
+        --         }
+        --     }
+        -- }
+        
+        local success, pyright_config = pcall(require, 'config.lsp.pyright')
+        if not success then
+            print('Error: Failed to load pyright.lua')
+            return
+        end
+
         lspconfig.pyright.setup {
             cmd = { mason_path .. "/pyright-langserver.cmd", "--stdio" },
             on_attach = on_attach,
             capabilities = capabilities,
 
-            root_dir = function() return vim.loop.cwd() end,
-            settings = {
-                python = {
-                    pythonPath = path_to_python
-                }
-            }
+            -- root_dir = function() return vim.loop.cwd() end,
+            root_dir = pyright_config.default_config.root_dir,
+            settings = pyright_config.default_config.settings.python
         }
+
 
         lspconfig.volar.setup {
             cmd = { mason_path .. "/vue-language-server.cmd", "--stdio" },

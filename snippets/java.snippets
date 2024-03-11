@@ -1,6 +1,8 @@
 ## Create a Method
-snippet m
-	${1:void} ${2:method}(${3}) ${4:throws }
+snippet p
+	${1:public} ${2:void} ${3}(${4} ${5}) {
+		${6}
+	}
 ##
 ## Create a Variable
 snippet v
@@ -13,6 +15,9 @@ snippet d.al
 snippet d.hm
 	Map<${1:Object}, ${2:Object}> ${3:map} = new HashMap<$1, $2>();${0}
 
+snippet forsys
+	forEach(System.out::println);
+
 snippet classmain
 
 	class $TM_FILENAME_BASE {
@@ -24,17 +29,14 @@ snippet classmain
 	}
 
 
-snippet classtitle
-
-	class $TM_FILENAME_BASE {
-		${1}
-
-	}
-
 ## ready examples
 
+snippet	ex.arr.int
+	int []intArr = new int[]{1, 2, 3, 4, 5};
+	Arrays.stream(intArr).forEach(System.out::println);
+	
 snippet	ex.asList
-	List<String> grList = Arrays.asList("Hello", "Goodbye" , "Good Morning");
+	List<String> grList = Arrays.asList("one", "two" , "three", "four");
 	grList.stream().forEach(System::println);
 	
 snippet ex.classUser
