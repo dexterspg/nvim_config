@@ -9,7 +9,7 @@ return {
 	},
 	build = ":TSUpdate",
 	config = function()
-		require 'nvim-treesitter.install'.compilers = { 'zig' }
+		require 'nvim-treesitter.install'.compilers = { 'gcc' }
 		local ok, ts = pcall(require, 'nvim-treesitter.configs')
 		if not ok then return end
 		ts.setup {

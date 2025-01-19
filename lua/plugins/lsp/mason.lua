@@ -18,7 +18,7 @@ return {
         })
         mason_lspconfig.setup({
             -- lua_ls issue installation -> delete lua from mason/bin mason/share/mason-schema and mason/packages, then reinstall
-            ensure_installed = { "jdtls", "html", "jsonls", "tsserver", "lua_ls", "volar", "cssls", "pyright" },
+            ensure_installed = { "jdtls", "html", "jsonls", "ts_ls", "lua_ls", "volar", "cssls", "pyright" },
             automatic_installation = true,
         })
     end,

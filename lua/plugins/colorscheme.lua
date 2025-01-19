@@ -1,23 +1,35 @@
 return {
-
+    {
+        "craftzdog/solarized-osaka.nvim",
+        lazy = true,
+        priority = 1000,
+        opts = function()
+            return {
+                transparent = true,
+            }
+        end,
+    --     config = function ()
+    --         vim.cmd('colorscheme  solarized-osaka')
+        -- end
+    },
 
     {
         'catppuccin/nvim',
         name = 'catppuccin',
         lazy = false,
-            config = function()
-                -- vim.cmd('colorscheme catppuccin');
+        config = function()
+            -- vim.cmd('colorscheme catppuccin');
 
-                -- require('catppuccin').setup({
-                    -- transparent_background=true,
-                    -- term_colors = false,
-                -- })
-            end
+            -- require('catppuccin').setup({
+            -- transparent_background=true,
+            -- term_colors = false,
+            -- })
+        end
     },
     {
         'folke/tokyonight.nvim',
         -- lazy = true,
-        config = function() vim.cmd('colorscheme tokyonight') end
+        -- config = function() vim.cmd('colorscheme tokyonight') end
     },
     {
         'rebelot/kanagawa.nvim',
@@ -39,7 +51,7 @@ return {
         'doki-theme/doki-theme-vim',
         lazy = true,
         config = function()
-            vim.cmd('colorscheme megumin')
+            -- vim.cmd('colorscheme katsuragi_misato')
         end
 
     }

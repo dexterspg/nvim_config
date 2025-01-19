@@ -28,7 +28,7 @@ function M.custom_keys()
 	vim.opt.swapfile = false
 	vim.opt.backup = false
 	vim.opt.undofile = true
-	vim.opt.undodir = os.getenv("HOME") .. ".vim/undodir"
+	vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
 	vim.opt.autochdir = true
 
 	vim.opt.wrap = true

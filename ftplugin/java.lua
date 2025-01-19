@@ -1,6 +1,6 @@
 local javaPath = "C:/Program Files/Java"
 local jdkPath17 = javaPath .. "/jdk-17"
-local jdkPath11 = javaPath .. "/jdk-11.0.7"
+-- local jdkPath11 = javaPath .. "/jdk-11.0.7"
 -- vim.env.JAVA_HOME = jdkPath17
 -- local nvim_data = 'C:/Users/dexte/AppData/Local/nvim-data'
 local nvim_data = vim.fn.stdpath("data")
@@ -17,7 +17,7 @@ vim.env.LOMBOK_JAR = path_to_lombok
 
 
 
-local root_markers = { ".git", "mvnw", "gradlew", "pom.xml", "build.gradle" }
+local root_markers = { "pom.xml", ".git", "mvnw", "gradlew",  "build.gradle" }
 -- local root_dir = require('jdtls.setup').find_root(root_markers)
 
 local function find_root_dir()
@@ -92,10 +92,10 @@ local config = {
 						name = "JavaSE-17",
 						path = jdkPath17,
 					},
-					{
-						name = "JavaSE-11",
-						path = jdkPath11,
-					},
+					-- {
+						-- -- name = "JavaSE-11",
+						-- path = jdkPath11,
+					-- },
 				},
 			},
 			autobuild = {

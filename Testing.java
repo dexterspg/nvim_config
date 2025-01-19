@@ -1,14 +1,10 @@
-import java.util.ArrayList;
-import java.util.StringTokenizer;
-
-
 public class Testing{
 
-	public void main(String [] args){
+	public static void main(String [] args){
 
-     	new ArrayList<String>();
-		
-        new Gamer();
+        System.out.println("Hello World");	
+        Integer i = null;
+        System.out.println(i);
 		
 	}
 
