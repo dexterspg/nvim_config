@@ -98,4 +98,21 @@ snippet nk.log.ag
 snippet nk.log.unit
 	logger.info("------------------------> DT_Unit id  :::  " + ${2:unit}.getUnitId() + " ::: " + ${2}.getObjectId());
 
-	
+
+#properties
+
+snippet mysql-config
+	# MySQL Database Configuration
+	spring.datasource.url=jdbc:mysql://localhost:3306/questiondb
+	spring.datasource.username=root
+	spring.datasource.password=root
+
+	# Specify the MySQL Driver
+	spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+
+	# JPA (Hibernate) Configuration
+	spring.jpa.hibernate.ddl-auto=update  
+
+	# spring.jpa.show-sql=true             # Enable SQL query logging
+	spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQLDialect
+
