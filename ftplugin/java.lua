@@ -1,6 +1,10 @@
-local javaPath = "C:/Program Files/Java"
-local jdkPath17 = javaPath .. "/jdk-17"
+-- local javaPath = "C:/Program Files/Java"
+local javaPath2 = "C:/Program Files/Amazon Corretto"
+-- local jdkPath17 = javaPath .. "/jdk-17"
 -- local jdkPath11 = javaPath .. "/jdk-11.0.7"
+local jdkPath21 = javaPath2 .. "/jdk21.0.6_7"
+
+
 -- vim.env.JAVA_HOME = jdkPath17
 -- local nvim_data = 'C:/Users/dexte/AppData/Local/nvim-data'
 local nvim_data = vim.fn.stdpath("data")
@@ -15,8 +19,6 @@ local path_to_java_dap = "C:/tools/java-debug/com.microsoft.java.debug.plugin/ta
 
 vim.env.LOMBOK_JAR = path_to_lombok
 
-
-
 local root_markers = { "pom.xml", ".git", "mvnw", "gradlew",  "build.gradle" }
 -- local root_dir = require('jdtls.setup').find_root(root_markers)
 
@@ -25,9 +27,11 @@ local function find_root_dir()
 	for _, marker in ipairs(root_markers) do
 		local root_dir = require("lspconfig").util.root_pattern(marker)(current_dir)
 		if root_dir and root_dir ~= "" then
+            print("Detected root directory: " .. root_dir)
 			return root_dir
 		end
 	end
+    print("Using current directory as root: " .. current_dir)
 	return current_dir
 end
 
@@ -36,7 +40,14 @@ local root_dir = find_root_dir()
 
 local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t")
 local workspace_dir = vim.fn.stdpath("data") .. "/site/java/workspace-root/" .. project_name
-os.execute("mkdir " .. workspace_dir)
+
+-- Check if project directory already exists
+if vim.fn.isdirectory(workspace_dir) == 1 then
+    print("Workspace Directory " .. workspace_dir .. " already exists.")
+else
+    -- Create new project directory
+    os.execute("mkdir " .. workspace_dir)
+end
 
 -- The nvim-cmp almost supports LSP's capabilities so You should advertise it to LSP servers..
 local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
@@ -81,7 +92,7 @@ local config = {
 	on_attach = on_attach,
 	settings = {
 		java = {
-			home = jdkPath17,
+			home = jdkPath21,
 			eclipse = {
 				downloadSources = true,
 			},
@@ -89,9 +100,14 @@ local config = {
 				updateBuildConfiguration = "interactive",
 				runtimes = {
 					{
-						name = "JavaSE-17",
-						path = jdkPath17,
+						name = "JavaSE-21",
+						path = jdkPath21,
 					},
+
+					-- {
+					-- 	name = "JavaSE-17",
+					-- 	path = jdkPath17,
+					-- },
 					-- {
 						-- -- name = "JavaSE-11",
 						-- path = jdkPath11,
@@ -121,7 +137,7 @@ local config = {
 			format = {
 				enabled = true,
 				settings = {
-					url = vim.fn.stdpath("config") .. "/lang-servers/intellij-java-google-style.xml",
+					url = vim.fn.stdpath("config"):gsub("\\","/") .. "/lang-servers/intellij-java-google-style.xml",
 					profile = "GoogleStyle",
 				},
 			},

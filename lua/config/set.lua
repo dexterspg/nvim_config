@@ -34,7 +34,7 @@ function M.custom_keys()
 	vim.opt.wrap = true
 
 	--improve performance
-	vim.opt.cursorline = false
+	vim.opt.cursorline = true
 	vim.opt.updatetime = 100
 	vim.opt.timeoutlen = 1000
 	-- vim.opt.lazyredraw = true

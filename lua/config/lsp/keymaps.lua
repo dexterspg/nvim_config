@@ -30,8 +30,27 @@ function M.map_lsp_keys(opts)
     vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist) -- trouble vim used for entire workspace
 end
 
+function M.rename_java_file(opts)
+
+    local filepath = vim.fn.expand("%:p")
+    local new_filename = vim.fn.input("New filename: ", filepath)
+
+    if new_filename ~= "" and new_filename ~= filepath then
+        vim.fn.rename(filepath, new_filename)
+        vim.api.nvim_buf_set_name(opts, new_filename)
+
+        -- Call Java LSP rename to update class name
+        require("jdtls").organize_imports()
+        vim.lsp.buf.rename()
+    end
+
+  vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>r", "<cmd>lua rename_java_file()<CR>", { noremap = true, silent = true })
+end
+
+
 function M.map_java_keys(opts)
     M.map_lsp_keys(opts)
+    -- M.rename_java_file(opts)
 
     -- local spring_boot_run = 'mvn spring-boot:run -Dspring-boot.run.profiles=local'
     -- local command = ':lua require("toggleterm").exec("' .. spring_boot_run .. '")<CR>'
@@ -42,6 +61,7 @@ function M.map_java_keys(opts)
     vim.keymap.set({ 'v', 'n' }, '<leader>cev', ':lua require("jdtls").extract_variable()<CR>', opts)
     vim.keymap.set({ 'v', 'n' }, '<leader>cec', ':lua require("jdtls").extract_constant()<CR>', opts)
     vim.keymap.set({ 'v', 'n' }, '<leader>cem', ':lua require("jdtls").extract_method()<CR>', opts)
+    vim.keymap.set({ 'v', 'n' }, '<leader>csm', ':lua vim.lsp.buf.document_symbol()<CR>', opts)
 
     map_debug_keys()
     vim.keymap.set('n', '<F11>', run_spring_boot() )
@@ -113,8 +133,8 @@ function get_spring_boot_runner(profile, debug)
     --
 end
 function show_dap_centered_scopes()
-      local widgets = require'dap.ui.widgets'
-      widgets.centered_float(widgets.scopes)
+    local widgets = require'dap.ui.widgets'
+    widgets.centered_float(widgets.scopes)
 end
 
 function attach_to_debug()
