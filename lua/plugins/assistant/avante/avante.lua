@@ -6,11 +6,11 @@ return {
         "stevearc/dressing.nvim",
         "nvim-lua/plenary.nvim",
         "MunifTanjim/nui.nvim",
-        "echasnovski/mini.pick", -- Optional: file_selector provider mini.pick
+        "echasnovski/mini.pick",         -- Optional: file_selector provider mini.pick
         "nvim-telescope/telescope.nvim", -- Optional: file_selector provider telescope
-        "hrsh7th/nvim-cmp", -- Autocompletion for Avante commands and mentions
-        "ibhagwan/fzf-lua", -- Optional: file_selector provider fzf
-        "nvim-tree/nvim-web-devicons", -- Or echasnovski/mini.icons
+        "hrsh7th/nvim-cmp",              -- Autocompletion for Avante commands and mentions
+        "ibhagwan/fzf-lua",              -- Optional: file_selector provider fzf
+        "echasnovski/mini.icons",
         "zbirenbaum/copilot.lua", -- For providers = 'copilot'
         {
             "HakonHarnes/img-clip.nvim",
@@ -46,22 +46,21 @@ return {
             provider = "openai",
             openai = {
                 endpoint = "https://api.openai.com/v1",
-                model = "gpt-4o", -- Your desired model
-                timeout = 30000, -- Timeout in milliseconds
+                model = "gpt-4o",             -- Your desired model
+                timeout = 30000,              -- Timeout in milliseconds
                 temperature = 0,
                 max_completion_tokens = 8192, -- To include reasoning tokens
                 -- reasoning_effort = "medium", -- Uncomment for reasoning models
             },
             -- opts = {
-                -- provider = "anthropic",
-                -- anthropic = {
-                    -- endpoint = "https://api.anthropic.com/v1",
-                    -- model = "claude-2",
-                    -- api_key = os.getenv("ANTHROPIC_API_KEY"), -- Store your key as an environment variable
-                -- },
+            -- provider = "anthropic",
+            -- anthropic = {
+            -- endpoint = "https://api.anthropic.com/v1",
+            -- model = "claude-2",
+            -- api_key = os.getenv("ANTHROPIC_API_KEY"), -- Store your key as an environment variable
+            -- },
             -- }
         })
     end,
     build = "make", -- If you want to build from source
 }
-

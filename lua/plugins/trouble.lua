@@ -1,13 +1,13 @@
 return {
     'folke/trouble.nvim',
-    dependencies = { 'nvim-tree/nvim-web-devicons'},
+    dependencies = { 'echasnovski/mini.icons' },
     cmd = { "TroubleToggle", "Trouble" },
     opts = { use_diagnostic_signs = true },
     keys = {
-        { "<leader>xx", "<cmd>Trouble diagnostics toggle<cr>",  desc ="Document Diagnostics (Trouble)" },
+        { "<leader>xx", "<cmd>Trouble diagnostics toggle<cr>",               desc = "Document Diagnostics (Trouble)" },
         { "<leader>xX", "<cmd>Trouble diagnostics toggle filter.buf=0 <cr>", desc = "Workspace Diagnostics (Trouble)" },
-        { "<leader>xL", "<cmd>Trouble loclist<cr>",               desc = "Location List (Trouble)" },
-        { "<leader>xQ", "<cmd>Trouble qflist toggle<cr>",              desc = "Quickfix List (Trouble)" },
+        { "<leader>xL", "<cmd>Trouble loclist<cr>",                          desc = "Location List (Trouble)" },
+        { "<leader>xQ", "<cmd>Trouble qflist toggle<cr>",                    desc = "Quickfix List (Trouble)" },
         -- {
         --     "[q",
         --     function()

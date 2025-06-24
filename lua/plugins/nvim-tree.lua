@@ -7,7 +7,7 @@ vim.keymap.set('n', '<leader>n', ':NvimTreeFindFileToggle<CR>', opts)
 return {
     'nvim-tree/nvim-tree.lua',
     dependencies = {
-        'ahmedkhalf/project.nvim' ,
+        'ahmedkhalf/project.nvim',
     },
     config = function()
         local status_ok, nvim_tree = pcall(require, "nvim-tree")
@@ -15,12 +15,12 @@ return {
             return
         end
         nvim_tree.setup({
-            sync_root_with_cwd=true, --based on project.nvim config
-            respect_buf_cwd=true,--based on project.nvim config
+            sync_root_with_cwd = true, --based on project.nvim config
+            respect_buf_cwd = true,  --based on project.nvim config
             hijack_cursor = true,
             update_focused_file = {
                 enable = true,
-                update_cwd = true,--based on project.nvim config
+                update_cwd = true, --based on project.nvim config
             },
             renderer = {
                 root_folder_modifier = ":t",

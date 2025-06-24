@@ -60,7 +60,7 @@ if not success then
 end
 
 local on_attach = function(_, bufnr)
-	keymaps.map_java_keys({ buffer = bufnr })
+    keymaps.map_java_keys({ buffer = bufnr })
     require('jdtls').setup_dap({ hotcodereplace = 'auto'})
 end
 vim.cmd("cd " .. root_dir)

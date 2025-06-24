@@ -1,11 +1,18 @@
 return {
-    'williamboman/mason.nvim',
+    'mason-org/mason.nvim',
     dependencies = {
-        'williamboman/mason-lspconfig.nvim',
+        {
+            'mason-org/mason-lspconfig.nvim',
+        },
     },
     config = function()
         local mason = require("mason")
-        local mason_lspconfig = require("mason-lspconfig")
+
+        local mason_lspconfig_ok, mason_lspconfig = pcall(require, "mason-lspconfig")
+        if not mason_lspconfig_ok then
+            vim.notify("mason-lspconfig not available (mason.lua)", vim.log.levels.ERROR)
+            return
+        end
 
         mason.setup({
             ui = {
@@ -16,10 +23,18 @@ return {
                 }
             }
         })
+
         mason_lspconfig.setup({
-            -- lua_ls issue installation -> delete lua from mason/bin mason/share/mason-schema and mason/packages, then reinstall
-            ensure_installed = { "jdtls", "html", "jsonls", "ts_ls", "lua_ls", "volar", "cssls", "pyright" },
-            automatic_installation = true,
+            ensure_installed = {
+                "jdtls",
+                -- "html-lsp",
+                -- "jsonls",
+                -- "ts_ls",
+                "lua_ls",
+                -- "cssls",
+                -- "basedpyright",
+            },
+            automatic_enable = true,
         })
     end,
 }

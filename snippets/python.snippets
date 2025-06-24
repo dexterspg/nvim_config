@@ -1,0 +1,7 @@
+
+snippet print.duck.select.query
+    print(conn.execute(f"""
+     $1
+     """).fetchdf())
+
+

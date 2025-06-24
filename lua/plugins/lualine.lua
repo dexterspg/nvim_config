@@ -21,9 +21,9 @@ local filename = {
 
 return {
     'nvim-lualine/lualine.nvim',
-    dependencies ={'nvim-tree/nvim-web-devicons',},
+    dependencies = { 'echasnovski/mini.icons', opts={} },
     config = function()
-        require('lualine').setup({
+        require('lualine').setup{
             options = {
                 icons_enabled = false,
                 theme = 'auto',
@@ -44,7 +44,7 @@ return {
             },
             sections = {
                 lualine_a = { 'mode' },
-                lualine_b = { branch , 'diff', diagnostics},
+                lualine_b = { branch, 'diff', diagnostics },
                 lualine_c = { filename },
                 lualine_x = { 'encoding', 'fileformat', 'filetype' },
                 lualine_y = { 'progress' },
@@ -62,6 +62,6 @@ return {
             winbar = {},
             inactive_winbar = {},
             extensions = {}
-        })
+        }
     end,
 }

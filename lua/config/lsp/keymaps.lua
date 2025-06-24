@@ -1,6 +1,5 @@
 local M = {}
 -- keymaps = P
-
 --opts = { noremap = true, silent = true }
 
 function M.map_lsp_keys(opts)
@@ -25,13 +24,17 @@ function M.map_lsp_keys(opts)
 
     -- Additional key mappings for diagnostics
     vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
-    vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
-    vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
+    vim.keymap.set("n", "]d", function()
+        vim.diagnostic.jump({ count = 1, float = true })
+    end, { desc = "Next diagnostic" })
+
+    vim.keymap.set("n", "[d", function()
+        vim.diagnostic.jump({ count = -1, float = true })
+    end, { desc = "Previous diagnostic" })
     vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist) -- trouble vim used for entire workspace
 end
 
 function M.rename_java_file(opts)
-
     local filepath = vim.fn.expand("%:p")
     local new_filename = vim.fn.input("New filename: ", filepath)
 
@@ -44,9 +47,8 @@ function M.rename_java_file(opts)
         vim.lsp.buf.rename()
     end
 
-  vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>r", "<cmd>lua rename_java_file()<CR>", { noremap = true, silent = true })
+    -- vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>r", "<cmd>lua rename_java_file()<CR>", { noremap = true, silent = true })
 end
-
 
 function M.map_java_keys(opts)
     M.map_lsp_keys(opts)
@@ -56,6 +58,12 @@ function M.map_java_keys(opts)
     -- local command = ':lua require("toggleterm").exec("' .. spring_boot_run .. '")<CR>'
     -- vim.keymap.set('n', '<leader>mm', command)
 
+    vim.keymap.set("n", "<leader>rj", rename_java_file, {
+        desc = "Rename Java file",
+        noremap = true,
+        silent = true,
+        buffer = 0, -- or specify a buffer number if needed
+    })
     vim.keymap.set('n', '<leader>oi', ':lua require("jdtls").organize_imports()<CR>')
     vim.keymap.set('n', '<leader>jc', ':lua require("jdtls").compile("instrumental")')
     vim.keymap.set({ 'v', 'n' }, '<leader>cev', ':lua require("jdtls").extract_variable()<CR>', opts)
@@ -64,8 +72,30 @@ function M.map_java_keys(opts)
     vim.keymap.set({ 'v', 'n' }, '<leader>csm', ':lua vim.lsp.buf.document_symbol()<CR>', opts)
 
     map_debug_keys()
-    vim.keymap.set('n', '<F11>', run_spring_boot() )
-    vim.keymap.set('n', '<C-F11>',  run_spring_boot(true) )
+    vim.keymap.set('n', '<F11>', run_spring_boot())
+    vim.keymap.set('n', '<C-F11>', run_spring_boot(true))
+end
+
+function rename_java_file()
+    local current_name = vim.fn.expand("%:t:r") -- current file name without extension
+    local params = vim.lsp.util.make_position_params()
+
+    vim.ui.input({ prompt = "New class name: ", default = current_name }, function(new_name)
+        if not new_name or #new_name == 0 or new_name == current_name then
+            return
+        end
+
+        -- Step 1: Request LSP rename
+        vim.lsp.buf.rename(new_name)
+
+        -- Step 2: Rename the file itself
+        local old_file = vim.api.nvim_buf_get_name(0)
+        local new_file = old_file:gsub(current_name, new_name)
+
+        os.rename(old_file, new_file)
+        vim.cmd("edit " .. new_file)
+        vim.cmd("bdelete! " .. old_file)
+    end)
 end
 
 function map_debug_keys()
@@ -75,11 +105,10 @@ function map_debug_keys()
     vim.keymap.set("n", "<leader>tc", function() run_java_test_class() end)
     vim.keymap.set("n", "<leader>TC", function() run_java_test_class(true) end)
     vim.keymap.set('n', 'gs', ':lua show_dap_centered_scopes()<CR>')
-
 end
 
 function run_spring_boot(debug)
-    local spring_boot_runner=get_spring_boot_runner('local', debug)
+    local spring_boot_runner = get_spring_boot_runner('local', debug)
     return ':lua require("toggleterm").exec([[' .. spring_boot_runner .. ']])<CR>'
 end
 
@@ -91,35 +120,35 @@ end
 
 function get_test_runner(test_name, debug)
     if debug then
-        return 'mvn test -Dmaven.surefire.debug -Dtest="' .. test_name .. '"' 
+        return 'mvn test -Dmaven.surefire.debug -Dtest="' .. test_name .. '"'
     end
-    return 'mvn test -Dtest="' .. test_name .. '"' 
+    return 'mvn test -Dtest="' .. test_name .. '"'
 end
 
 function run_java_test_method(debug)
-    local utils = require'utils'
+    local utils = require 'utils'
     local method_name = utils.get_current_full_method_name("\\#")
     vim.cmd('term ' .. get_test_runner(method_name, debug))
 end
 
 function run_java_test_class(debug)
-    local utils = require'utils'
+    local utils = require 'utils'
     local class_name = utils.get_current_full_class_name()
     vim.cmd('term ' .. get_test_runner(class_name, debug))
 end
 
 function get_spring_boot_runner(profile, debug)
-
     local debug_param = ""
     if debug then
-        debug_param = '-Dspring-boot.run.jvmArguments="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005"'
+        debug_param =
+        '-Dspring-boot.run.jvmArguments="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005"'
     end
 
     local profile_param = ""
     if profile then
         profile_param = "-Dspring-boot.run.profiles=" .. profile
     end
-    return 'mvn spring-boot:run ' .. profile_param ..  ' ' .. debug_param
+    return 'mvn spring-boot:run ' .. profile_param .. ' ' .. debug_param
 
     -- local params = {}
     -- if #profile_param > 0 then
@@ -132,8 +161,9 @@ function get_spring_boot_runner(profile, debug)
     -- return 'mvn spring-boot:run ' .. table.concat(params, ' ')
     --
 end
+
 function show_dap_centered_scopes()
-    local widgets = require'dap.ui.widgets'
+    local widgets = require 'dap.ui.widgets'
     widgets.centered_float(widgets.scopes)
 end
 
@@ -141,16 +171,14 @@ function attach_to_debug()
     local dap = require('dap');
     dap.configurations.java = {
         {
-            type = 'java';
-            request = 'attach';
-            name = "Attach to the process";
-            hostName = 'localhost';
-            port = '5005';
+            type = 'java',
+            request = 'attach',
+            name = "Attach to the process",
+            hostName = 'localhost',
+            port = '5005',
         },
     }
     dap.continue()
 end
-
-
 
 return M

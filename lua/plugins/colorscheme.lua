@@ -1,5 +1,5 @@
 return {
-{
+    {
         "nickkadutskyi/jb.nvim",
         lazy = true,
         priority = 1000,
@@ -8,9 +8,6 @@ return {
                 transparent = true,
             }
         end,
-    --     config = function ()
-    --         vim.cmd('colorscheme  solarized-osaka')
-        -- end
     },
     {
         "EdenEast/nightfox.nvim",
@@ -21,8 +18,8 @@ return {
                 transparent = true,
             }
         end,
-    --     config = function ()
-    --         vim.cmd('colorscheme  solarized-osaka')
+        --     config = function ()
+        --         vim.cmd('colorscheme  solarized-osaka')
         -- end
     },
 
@@ -35,8 +32,8 @@ return {
                 transparent = true,
             }
         end,
-    --     config = function ()
-    --         vim.cmd('colorscheme  solarized-osaka')
+        --     config = function ()
+        --         vim.cmd('colorscheme  solarized-osaka')
         -- end
     },
 
@@ -61,12 +58,21 @@ return {
     {
         'rebelot/kanagawa.nvim',
         lazy = false,
-        config = function()
-            -- vim.cmd('colorscheme kanagawa')
-            -- vim.cmd('hi TelescopeBorder guibg=none')
-            -- vim.cmd('hi TelescopeTitle guibg=none')
-        end
-
+        config = function(colors)
+            require('kanagawa').setup({
+                transparent = true,
+                overrides = function(colors)
+                    return {
+                        ["@markup.link.url.markdown_inline"] = { link = "Special" },
+                        ["@markup.link.label.markdown_inline"] = { link = "WarningMsg" },
+                        ["@markup.italic.markdown_inline"] = { link = "Exception" },
+                        ["@markup.raw.markdown_inline"] = { link = "String" },
+                        ["@markup.list.markdown"] = { link = "Function" },
+                        ["@markup.quote.markdown"] = { link = "Error" },
+                    }
+                end
+            })
+        end,
     },
 
     {

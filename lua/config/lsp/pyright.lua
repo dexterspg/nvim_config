@@ -1,5 +1,5 @@
-local util = require("lspconfig.util")
-local path_to_python = vim.fn.expand('~') .. '/AppData/Local/Programs/Python/Python38-32/python.exe'
+local util = require("lspconfig.util") -- local path_to_python = vim.fn.expand('~') .. '/AppData/Local/Programs/Python/Python38-32/python.exe'
+local path_to_python = '/c/Python313/python.exe'
 -- local bin_name = "pyright-langserver"
 local bin_name = "pyright-langserver.cmd"
 local cmd = { bin_name, "--stdio" }
@@ -14,16 +14,17 @@ local root_files = {
 	"Pipfile",
 	"pyrightconfig.json",
 }
+
 local function organize_imports()
 	local params = {
 		command = "pyright.organizeimports",
 		arguments = { vim.uri_from_bufnr(0) },
 	}
-	vim.lsp.buf.execute_command(params)
+	vim.lsp.buf.execute(params)
 end
+
 return {
 	default_config = {
-		-- cmd = cmd,
 		filetypes = { "python" },
 		root_dir = util.root_pattern(unpack(root_files)),
 		single_file_support = true,
@@ -31,7 +32,6 @@ return {
             pyright ={
                 disableLanguageService = false,
                 disableOrganizeImports= false
-
             },
 			python = {
                 pythonPath = path_to_python,
