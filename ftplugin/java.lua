@@ -2,7 +2,7 @@
 local javaPath2 = "C:/Program Files/Amazon Corretto"
 -- local jdkPath17 = javaPath .. "/jdk-17"
 -- local jdkPath11 = javaPath .. "/jdk-11.0.7"
-local jdkPath21 = javaPath2 .. "/jdk21.0.6_7"
+local jdkPath21 = javaPath2 .. "/jdk21.0.9_10"
 
 
 -- vim.env.JAVA_HOME = jdkPath17
@@ -14,7 +14,7 @@ local config_dir = jdtls_dir .. "/config_win"
 local plugins_dir = jdtls_dir .. "/plugins"
 local path_to_jar = vim.fn.glob(plugins_dir .. "/org.eclipse.equinox.launcher_*.jar")
 local path_to_lombok = jdtls_dir .. "/lombok.jar"
-local path_to_java_dap = "C:/tools/java-debug/com.microsoft.java.debug.plugin/target/"
+local path_to_java_dap = vim.fn.stdpath("data") .. "/mason/packages/java-debug-adapter/extension/server/"
 
 
 vim.env.LOMBOK_JAR = path_to_lombok
@@ -22,18 +22,64 @@ vim.env.LOMBOK_JAR = path_to_lombok
 local root_markers = { "pom.xml", ".git", "mvnw", "gradlew",  "build.gradle" }
 -- local root_dir = require('jdtls.setup').find_root(root_markers)
 
+-- local function find_root_dir()
+-- 	local current_dir = vim.fn.getcwd()
+-- 	for _, marker in ipairs(root_markers) do
+-- 		local root_dir = require("lspconfig").util.root_pattern(marker)(current_dir)
+-- 		if root_dir and root_dir ~= "" then
+--             print("Detected root directory: " .. root_dir)
+-- 			return root_dir
+-- 		end
+-- 	end
+--     print("Using current directory as root: " .. current_dir)
+-- 	return current_dir
+-- end
+--
 local function find_root_dir()
-	local current_dir = vim.fn.getcwd()
-	for _, marker in ipairs(root_markers) do
-		local root_dir = require("lspconfig").util.root_pattern(marker)(current_dir)
-		if root_dir and root_dir ~= "" then
-            print("Detected root directory: " .. root_dir)
-			return root_dir
-		end
-	end
-    print("Using current directory as root: " .. current_dir)
-	return current_dir
+    local current_file = vim.fn.expand('%:p'):gsub('\\', '/')
+    
+    print("=== Smart Maven Detection ===")
+    
+    -- Find all pom.xml files
+    local poms_found = {}
+    local search_path = vim.fn.fnamemodify(current_file, ':h')
+    
+    while search_path and search_path ~= "/" and search_path ~= "C:/" do
+        local pom_path = search_path .. "/pom.xml"
+        if vim.fn.filereadable(pom_path) == 1 then
+            table.insert(poms_found, {path = search_path, pom = pom_path})
+        end
+        local parent = vim.fn.fnamemodify(search_path, ':h')
+        if parent == search_path then break end
+        search_path = parent
+    end
+    
+    if #poms_found == 0 then
+        print("⚠ Standalone mode")
+        return vim.fn.fnamemodify(current_file, ':h')
+    end
+    
+    -- If only one pom, use it
+    if #poms_found == 1 then
+        print("✓ Single-module project: " .. poms_found[1].path)
+        return poms_found[1].path
+    end
+    
+    -- Multiple poms: check if highest is a parent
+    local highest = poms_found[#poms_found]
+    local pom_content = table.concat(vim.fn.readfile(highest.pom), "\n")
+    
+    if pom_content:match("<modules>") then
+        print("✓ Multi-module parent: " .. highest.path)
+        return highest.path
+    else
+        -- No <modules> tag, so use nearest
+        print("✓ Nested single projects: " .. poms_found[1].path)
+        return poms_found[1].path
+    end
 end
+
+
 
 local root_dir = find_root_dir()
 -- print("root_dir: " .. root_dir)
