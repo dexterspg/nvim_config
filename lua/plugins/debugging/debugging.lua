@@ -70,27 +70,38 @@ return {
             end
         end, { desc = 'Debug: Watch Expression' })
 
-        -- Java debug runner (compile and run with debugger)
+        -- Java debug runner (compile and run with debugger) - Maven
         vim.keymap.set('n', '<Leader>jd', function()
             local root_dir = vim.fn.getcwd()
             local file = vim.fn.expand('%:t:r')
             local cmd = string.format(
-                'cd "%s" && javac src/%s.java -d target && java -agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=5005 -cp target %s',
+                'cd "%s" && mvn compile && java -agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=5005 -cp target/classes %s',
+                root_dir, file
+            )
+            require("toggleterm").exec(cmd)
+        end, { desc = 'Java: Run with Debugger (Maven)' })
+
+        -- Java debug runner (simple javac)
+        vim.keymap.set('n', '<Leader>jD', function()
+            local root_dir = vim.fn.getcwd()
+            local file = vim.fn.expand('%:t:r')
+            local cmd = string.format(
+                'cd "%s" && javac -g src/%s.java -d target/classes && java -agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=5005 -cp target/classes %s',
                 root_dir, file, file
             )
             require("toggleterm").exec(cmd)
-        end, { desc = 'Java: Run with Debugger' })
+        end, { desc = 'Java: Run with Debugger (javac)' })
 
         -- Java run (compile and run without debug)
         vim.keymap.set('n', '<Leader>jr', function()
             local root_dir = vim.fn.getcwd()
             local file = vim.fn.expand('%:t:r')
             local cmd = string.format(
-                'cd "%s" && javac src/%s.java -d target && java -cp target %s',
-                root_dir, file, file
+                'cd "%s" && mvn compile exec:java -Dexec.mainClass="%s"',
+                root_dir, file
             )
             require("toggleterm").exec(cmd)
-        end, { desc = 'Java: Run' })
+        end, { desc = 'Java: Run (Maven)' })
 
         vim.fn.sign_define('DapBreakpoint', { text = '●', texthl = 'DapBreakpoint', linehl = '', numhl = '' })
         vim.fn.sign_define('DapBreakpointCondition', { text = '◆', texthl = 'DapBreakpointCondition', linehl = '', numhl = '' })
