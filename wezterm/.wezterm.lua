@@ -132,10 +132,10 @@ config.harfbuzz_features = { 'calt=0', 'clig=0', 'liga=0' }
 config.font_size = 12
 config.window_background_opacity = 1.0
 -- config.win32_system_backdrop = "Mica"
-config.front_end = 'OpenGL'
+config.front_end = 'WebGpu'
 -- Transparent background layer (controlled by LEADER+o, default 0.85 opacity)
 config.background = {{
-    source = { Color = "rgb(15, 15, 25)" },
+    source = { Color = string.format("rgba(15, 15, 25, %.2f)", default_bg_opacity) },
     width = "100%",
     height = "100%",
 }}
@@ -150,6 +150,8 @@ config.animation_fps = 1          -- no animation redraws
 config.cursor_blink_rate = 0      -- disable cursor blink (redraws on every tick)
 config.max_fps = 60               -- cap render rate
 config.use_ime = false            -- skip IME pipeline on every keystroke
+config.check_for_updates = false  -- no background network checks
+config.scrollback_lines = 2000    -- default 3500, less memory to manage
 -- config.prefer_egl = true        -- redundant with WebGpu front_end
 config.audible_bell = "Disabled"  -- prevent bell syscall stalls
 config.window_close_confirmation = "AlwaysPrompt"
