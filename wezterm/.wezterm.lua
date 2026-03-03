@@ -127,21 +127,15 @@ config.set_environment_variables = {
     PATH = "/c/Program Files/Java/jdk-17/bin;" .. os.getenv("PATH"),
 }
 config.color_scheme = 'Dracula'
-config.font = wezterm.font('JetBrainsMono Nerd Font Mono', { weight = 'Bold' })
+config.font = wezterm.font('JetBrainsMono Nerd Font Mono', { weight = 'Regular' })
+config.harfbuzz_features = { 'calt=0', 'clig=0', 'liga=0' }
 config.font_size = 12
 config.window_background_opacity = 1.0
 -- config.win32_system_backdrop = "Mica"
--- Use Software renderer so DWM compositing handles transparency correctly on Windows
-for _, gpu in ipairs(wezterm.gui.enumerate_gpus()) do
-    if gpu.backend == 'Vulkan' then
-        config.webgpu_preferred_adapter = gpu
-        config.front_end = 'Software'
-        break
-    end
-end
+config.front_end = 'OpenGL'
 -- Transparent background layer (controlled by LEADER+o, default 0.85 opacity)
 config.background = {{
-    source = { Color = string.format("rgba(15, 15, 25, %.2f)", default_bg_opacity) },
+    source = { Color = "rgb(15, 15, 25)" },
     width = "100%",
     height = "100%",
 }}
@@ -154,8 +148,9 @@ config.window_decorations = 'NONE'
 -- Performance tuning: reduce input latency
 config.animation_fps = 1          -- no animation redraws
 config.cursor_blink_rate = 0      -- disable cursor blink (redraws on every tick)
-config.max_fps = 120              -- cap render rate
-config.prefer_egl = true          -- use EGL GPU path over software rendering
+config.max_fps = 60               -- cap render rate
+config.use_ime = false            -- skip IME pipeline on every keystroke
+-- config.prefer_egl = true        -- redundant with WebGpu front_end
 config.audible_bell = "Disabled"  -- prevent bell syscall stalls
 config.window_close_confirmation = "AlwaysPrompt"
 config.enable_tab_bar=false
@@ -170,7 +165,7 @@ config.inactive_pane_hsb = {
 }
 
 config.window_padding = { left = 0, right = 0, top = 0, bottom = 0 }
-config.leader = { key = "a", mods = "CTRL", timeout_milliseconds = 1000 }
+config.leader = { key = "a", mods = "CTRL", timeout_milliseconds = 500 }
 
 -- Enable clicking hyperlinks with proper path conversion
 config.hyperlink_rules = {
@@ -182,11 +177,6 @@ config.hyperlink_rules = {
     -- Windows absolute paths: C:\path\to\file or C:/path/to/file
     {
         regex = '[A-Z]:[\\\\/:][\\w\\-._/\\\\]*',
-        format = 'file:///$0',
-    },
-    -- Home directory paths: ~/.config or ~/workspace
-    {
-        regex = '~[\\w\\-._/]*',
         format = 'file:///$0',
     },
 }
