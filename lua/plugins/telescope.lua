@@ -8,6 +8,7 @@ return {
             build =
             "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
         },
+        "nvim-telescope/telescope-file-browser.nvim",
         "echasnovski/mini.icons",
     },
     config = function()
@@ -15,15 +16,20 @@ return {
         local builtin = require("telescope.builtin")
 
         -- do not forget to install ripgrep ex. in cmd choco install ripgrep
-        -- Keymaps for various Telescope pickers
-        vim.keymap.set("n", "<leader>pf", builtin.find_files, { desc = "[S]earch [F]iles" })
-        vim.keymap.set("n", "<leader>pF", builtin.find_files, { desc = "[S]earch [F]iles cwd" })
-        vim.keymap.set("n", "<leader>?", builtin.oldfiles, { desc = "[F]ind [R]ecently [O]pen [F]iles" })
+        -- File/Buffer Navigation
+        vim.keymap.set("n", "<leader>pf", builtin.find_files, { desc = "Find files (project)" })
+        vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Find buffers" })
+        vim.keymap.set("n", "<leader>?", builtin.oldfiles, { desc = "Find recent files" })
+        vim.keymap.set("n", "<leader>sf", "<cmd>Telescope file_browser<cr>", { desc = "Browse files (telescope)" })
+        vim.keymap.set("n", "<leader>sF", "<cmd>Telescope file_browser path=%:p:h select_buffer=true<cr>", { desc = "Browse current directory" })
+
+        -- Content Search
+        vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "Find by grep (live)" })
+        vim.keymap.set("n", "<leader>fw", builtin.grep_string, { desc = "Find word under cursor" })
+
+        -- Other
         vim.keymap.set("n", "<leader>uC", builtin.colorscheme, { desc = "Preview colorscheme" })
         vim.keymap.set("n", "<leader>sk", builtin.keymaps, { desc = "Search keymaps" })
-        vim.keymap.set("n", "<leader>fs", builtin.live_grep, { desc = "Find string in cwd" })
-        vim.keymap.set("n", "<leader>fc", builtin.grep_string, { desc = "Search string under cursor in cwd" })
-        vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Search open buffers" })
 
         telescope.setup({
             defaults = {
@@ -39,7 +45,8 @@ return {
             },
         })
 
-        -- Load the FZF native extension (optional but fast)
+        -- Load extensions
         pcall(telescope.load_extension, "fzf")
+        pcall(telescope.load_extension, "file_browser")
     end,
 }

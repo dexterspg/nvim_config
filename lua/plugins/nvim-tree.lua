@@ -6,6 +6,7 @@ vim.keymap.set('n', '<leader>n', ':NvimTreeFindFileToggle<CR>', opts)
 
 return {
     'nvim-tree/nvim-tree.lua',
+    enabled = false, -- Disabled in favor of neo-tree
     dependencies = {
         'ahmedkhalf/project.nvim',
     },
