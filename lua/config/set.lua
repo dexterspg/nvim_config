@@ -110,6 +110,10 @@ function M.mappings()
     keymap.set("n", "<S-l>", ":bnext<CR>", opts)
     keymap.set("n", "<S-h>", ":bprevious<CR>", opts)
 
+    -- Toggle between current and last file (like Alt+Tab)
+    keymap.set("n", "<leader><leader>", "<C-^>", { noremap = true, silent = true, desc = "Toggle to alternate file" })
+    keymap.set("n", "<BS><BS>", "<C-^>", { noremap = true, silent = true, desc = "Toggle to alternate file" })
+
     --Move line up and down
     keymap.set("n", "<A-k>", "<esc>:m-2<CR>", opts)
     keymap.set("n", "<A-j>", "<esc>:m+1<CR>", opts)
