@@ -123,6 +123,7 @@ if wezterm.config_builder then
 end
 
 config.default_prog = { "C:\\Program Files\\Git\\bin\\bash.exe", "-i", "-l" }
+config.default_cwd = "C:/workarea"
 config.set_environment_variables = {
     PATH = "/c/Program Files/Java/jdk-17/bin;" .. os.getenv("PATH"),
 }
@@ -176,9 +177,9 @@ config.hyperlink_rules = {
         regex = '\\b\\w+://(?:[\\w.-]+)(?::\\d+)?\\S*\\b',
         format = '$0',
     },
-    -- Windows absolute paths: C:\path\to\file or C:/path/to/file
+    -- Windows absolute paths: C:\path\to\file or C:/path/to/file (including spaces)
     {
-        regex = '[A-Z]:[\\\\/:][\\w\\-._/\\\\]*',
+        regex = '[A-Z]:[\\\\/:][\\w\\-._/\\\\ ]*[\\w\\-._/\\\\]',
         format = 'file:///$0',
     },
 }
