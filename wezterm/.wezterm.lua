@@ -89,7 +89,7 @@ local light_schemes = {
 }
 local light_idx = 1
 
-local default_bg_opacity = 0.85
+local default_bg_opacity = 0.7
 local current_bg_opacity = default_bg_opacity  -- tracks live value for LEADER+o display
 
 local function cycle_scheme(window, step)
@@ -124,41 +124,21 @@ end
 
 config.default_prog = { "C:\\Program Files\\Git\\bin\\bash.exe", "-i", "-l" }
 config.default_cwd = "C:/workarea"
-config.set_environment_variables = {
-    PATH = "/c/Program Files/Java/jdk-17/bin;" .. os.getenv("PATH"),
-}
+-- config.set_environment_variables = {
+    -- PATH = "/c/Program Files/Java/jdk-17/bin;" .. os.getenv("PATH"),
+-- }
 config.color_scheme = 'Dracula'
-config.font = wezterm.font('JetBrainsMono Nerd Font Mono', { weight = 'Regular' })
-config.harfbuzz_features = { 'calt=0', 'clig=0', 'liga=0' }
+-- config.font = wezterm.font('JetBrains Mono', { italic= true })
+config.font = wezterm.font('JetBrains Mono', { weight = 'Bold' })
 config.font_size = 12
-config.window_background_opacity = 1.0
--- config.win32_system_backdrop = "Mica"
-config.front_end = 'WebGpu'
--- Transparent background layer (controlled by LEADER+o, default 0.85 opacity)
-config.background = {{
-    source = { Color = string.format("rgba(15, 15, 25, %.2f)", default_bg_opacity) },
-    width = "100%",
-    height = "100%",
-}}
-
--- Custom background layer for text contrast
--- Adjust the rgba values to control darkness and text brightness
+config.window_background_opacity = 0.7
 config.bold_brightens_ansi_colors = 'BrightOnly'
 config.window_decorations = 'NONE'
-
--- Performance tuning: reduce input latency
-config.animation_fps = 1          -- no animation redraws
-config.cursor_blink_rate = 0      -- disable cursor blink (redraws on every tick)
-config.max_fps = 60               -- cap render rate
-config.use_ime = false            -- skip IME pipeline on every keystroke
-config.check_for_updates = false  -- no background network checks
-config.scrollback_lines = 2000    -- default 3500, less memory to manage
--- config.prefer_egl = true        -- redundant with WebGpu front_end
-config.audible_bell = "Disabled"  -- prevent bell syscall stalls
 config.window_close_confirmation = "AlwaysPrompt"
-config.enable_tab_bar=false
+config.enable_tab_bar=true
 --  initial_rows =100
 --  initial_cols =100
+--
 --
 --
 -- Dim inactive panes
@@ -189,13 +169,13 @@ config.keys = {
     { key = "c",          mods = "LEADER",      action = act.ActivateCopyMode },
     { key = "phys:Space", mods = "LEADER",      action = act.ActivateCommandPalette },
 
-    -- Opacity control: LEADER+o (prompts for background layer opacity 0.0-1.0)
-    { key = "o", mods = "LEADER", action = wezterm.action_callback(function(window, pane)
+    -- Opacity control: Ctrl+A, o (prompts for custom value 0.0-1.0)
+    { key = "o",          mods = "LEADER",      action = wezterm.action_callback(function(window, pane)
         window:perform_action(act.PromptInputLine {
             description = wezterm.format {
                 { Attribute = { Intensity = "Bold" } },
                 { Foreground = { AnsiColor = "Green" } },
-                { Text = string.format("Background opacity (0.0-1.0) [current: %.2f]: ", current_bg_opacity) },
+                { Text = string.format("Enter opacity (0.0-1.0) [current: %.2f]: ", current_bg_opacity) },
             },
             action = wezterm.action_callback(function(window, pane, line)
                 if line then
@@ -204,11 +184,7 @@ config.keys = {
                         opacity = math.max(0, math.min(1, opacity))
                         current_bg_opacity = opacity
                         local overrides = window:get_config_overrides() or {}
-                        overrides.background = {{
-                            source = { Color = string.format("rgba(15, 15, 25, %.2f)", opacity) },
-                            width = "100%",
-                            height = "100%",
-                        }}
+                        overrides.window_background_opacity = opacity
                         overrides.color_scheme = opacity <= 0.5 and light_schemes[light_idx] or colorschemes[scheme_idx]
                         window:set_config_overrides(overrides)
                     end
@@ -217,6 +193,7 @@ config.keys = {
         }, pane)
     end) },
 
+    -- Pane keybindings
     { key = "s",          mods = "LEADER",      action = act.SplitVertical { domain = "CurrentPaneDomain" } },
     { key = "v",          mods = "LEADER",      action = act.SplitHorizontal { domain = "CurrentPaneDomain" } },
     { key = "h",          mods = "LEADER",      action = act.ActivatePaneDirection("Left") },
@@ -225,11 +202,11 @@ config.keys = {
     { key = "l",          mods = "LEADER",      action = act.ActivatePaneDirection("Right") },
     { key = "q",          mods = "LEADER",      action = act.CloseCurrentPane { confirm = true } },
     { key = "z",          mods = "LEADER",      action = act.TogglePaneZoomState },
+    { key = "R",          mods = "LEADER",      action = act.RotatePanes "Clockwise" },
+    { key = "S",          mods = "LEADER",      action = act.PaneSelect { mode = "SwapWithActive" } },
     -- We can make separate keybindings for resizing panes
     -- But Wezterm offers custom "mode" in the name of "KeyTable"
     { key = "r",          mods = "LEADER",      action = act.ActivateKeyTable { name = "resize_pane", one_shot = false } },
-    { key = "R",          mods = "LEADER",      action = act.RotatePanes "Clockwise" },
-    { key = "S",          mods = "LEADER",      action = act.PaneSelect { mode = "SwapWithActive" } },
 
     -- Tab keybindings
     { key = "t",          mods = "LEADER",      action = act.SpawnTab("CurrentPaneDomain") },
@@ -257,7 +234,7 @@ config.keys = {
     -- Toggle tab bar: LEADER+b
     { key = "b", mods = "LEADER", action = wezterm.action_callback(function(window)
         local overrides = window:get_config_overrides() or {}
-        overrides.enable_tab_bar = not (overrides.enable_tab_bar or false)
+        overrides.enable_tab_bar = not (overrides.enable_tab_bar or config.enable_tab_bar)
         window:set_config_overrides(overrides)
     end) },
 
@@ -267,6 +244,10 @@ config.keys = {
 
     --  moving tabs around
     { key = "m", mods = "LEADER",       action = act.ActivateKeyTable { name = "move_tab", one_shot = false } },
+    -- Or shortcuts to move tab w/o move_tab table. SHIFT is for when caps lock is on
+    { key = "{", mods = "LEADER|SHIFT", action = act.MoveTabRelative(-1) },
+    { key = "}", mods = "LEADER|SHIFT", action = act.MoveTabRelative(1) },
+
     -- Fuzzy workspace switcher: Ctrl+A, w - PRIMARY
     { key = "w", mods = "LEADER",       action = act.ShowLauncherArgs { flags = "FUZZY|WORKSPACES" } },
     -- Workspace creation/navigation: Ctrl+A, Shift+W (prompts for workspace name) - SECONDARY
@@ -285,6 +266,14 @@ config.keys = {
     }},
 
 }
+-- I can use the tab navigator (LDR n), but I also want to quickly navigate tabs with index
+for i = 1, 9 do
+    table.insert(config.keys, {
+        key = tostring(i),
+        mods = "LEADER",
+        action = act.ActivateTab(i - 1)
+    })
+end
 
 config.key_tables = {
     resize_pane = {
@@ -306,10 +295,3 @@ config.key_tables = {
 }
 
 return config
-
-
-
-
-
-
---
