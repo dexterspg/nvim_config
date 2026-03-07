@@ -1,21 +1,8 @@
--- Machine-specific JDK paths: auto-detect which one exists
-local jdk_candidates = {
-    "C:/Users/dpagkaliwangan/AppData/Local/Programs/Eclipse Adoptium/jdk-21.0.9.10-hotspot",
-    "C:/Program Files/Amazon Corretto/jdk21.0.9_10",
-}
-
-local jdkPath21
-for _, path in ipairs(jdk_candidates) do
-    if vim.fn.isdirectory(path) == 1 then
-        jdkPath21 = path
-        break
-    end
-end
-
-if not jdkPath21 then
-    vim.notify("No JDK 21 found! Check jdk_candidates in ftplugin/java.lua", vim.log.levels.ERROR)
-    return
-end
+-- local javaPath = "C:/Program Files/Java"
+local javaPath2 = "C:/Program Files/Amazon Corretto"
+-- local jdkPath17 = javaPath .. "/jdk-17"
+-- local jdkPath11 = javaPath .. "/jdk-11.0.7"
+local jdkPath21 = javaPath2 .. "/jdk21.0.9_10"
 
 
 -- vim.env.JAVA_HOME = jdkPath17
@@ -126,7 +113,7 @@ vim.cmd("cd " .. root_dir)
 
 local config = {
 	cmd = {
-		jdkPath21 .. "/bin/java.exe",
+		"java",
 		"-Declipse.application=org.eclipse.jdt.ls.core.id1",
 		"-Dosgi.bundles.defaultStartLevel=4",
 		"-Declipse.product=org.eclipse.jdt.ls.core.product",
