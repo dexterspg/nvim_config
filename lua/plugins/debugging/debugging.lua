@@ -103,6 +103,32 @@ return {
             require("toggleterm").exec(cmd)
         end, { desc = 'Java: Run (Maven)' })
 
+        -- Spring Boot attach debugger
+        vim.keymap.set('n', '<Leader>sa', function()
+            -- Ensure Java debug config exists
+            if not dap.configurations.java then
+                dap.configurations.java = {}
+            end
+            -- Add Spring Boot config if not present
+            local has_spring_boot = false
+            for _, config in ipairs(dap.configurations.java) do
+                if config.name and config.name:match("Spring Boot") then
+                    has_spring_boot = true
+                    break
+                end
+            end
+            if not has_spring_boot then
+                table.insert(dap.configurations.java, {
+                    type = 'java',
+                    request = 'attach',
+                    name = 'Attach to Spring Boot (5005)',
+                    hostName = 'localhost',
+                    port = 5005,
+                })
+            end
+            dap.continue()
+        end, { desc = 'Spring Boot: Attach Debugger' })
+
         vim.fn.sign_define('DapBreakpoint', { text = '●', texthl = 'DapBreakpoint', linehl = '', numhl = '' })
         vim.fn.sign_define('DapBreakpointCondition', { text = '◆', texthl = 'DapBreakpointCondition', linehl = '', numhl = '' })
         vim.fn.sign_define('DapBreakpointRejected', { text = '○', texthl = 'DapBreakpointRejected', linehl = '', numhl = '' })
