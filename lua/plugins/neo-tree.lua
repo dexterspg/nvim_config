@@ -12,7 +12,7 @@ return {
         { "<leader>fe", "<cmd>Neotree toggle<cr>", desc = "Toggle Neo-tree" },
         { "<leader>fE", "<cmd>Neotree reveal<cr>", desc = "Reveal in Neo-tree" },
         { "<leader>fb", "<cmd>Neotree buffers toggle<cr>", desc = "Neo-tree: Buffers" },
-        { "<leader>fg", "<cmd>Neotree git_status toggle<cr>", desc = "Neo-tree: Git Status" },
+        { "<leader>gs", "<cmd>Neotree git_status toggle<cr>", desc = "Neo-tree: Git Status" },
     },
     config = function()
         require("neo-tree").setup({
@@ -157,7 +157,7 @@ return {
                 },
                 follow_current_file = {
                     enabled = true,
-                    leave_dirs_open = false,
+                    leave_dirs_open = true,  -- Keep parent folders open and visible
                 },
                 group_empty_dirs = true,
                 hijack_netrw_behavior = "open_default",
