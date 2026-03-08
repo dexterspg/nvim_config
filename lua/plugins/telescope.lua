@@ -17,7 +17,7 @@ return {
 
         -- do not forget to install ripgrep ex. in cmd choco install ripgrep
         -- File/Buffer Navigation
-        vim.keymap.set("n", "<leader>pf", builtin.find_files, { desc = "Find files (project)" })
+        vim.keymap.set("n", "<leader>pf", builtin.find_files, { desc = "Find files (project root)" })
         vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Find buffers" })
         vim.keymap.set("n", "<leader>?", builtin.oldfiles, { desc = "Find recent files" })
         vim.keymap.set("n", "<leader>sf", "<cmd>Telescope file_browser<cr>", { desc = "Browse files (telescope)" })
