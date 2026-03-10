@@ -1,15 +1,25 @@
--- Disable netrw to let Oil handle directory opening
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
-
 return {
     'stevearc/oil.nvim',
     dependencies = { 'echasnovski/mini.icons' },
-    lazy = false,
+    cmd = "Oil",
     keys = {
         { "-", "<CMD>Oil<CR>", desc = "Open parent directory (Oil)" },
         { "<leader>-", "<CMD>Oil --float<CR>", desc = "Open Oil in floating window" },
     },
+    init = function()
+        -- Disable netrw so Oil can take over directory buffers
+        vim.g.loaded_netrw = 1
+        vim.g.loaded_netrwPlugin = 1
+        -- Load Oil when opening a directory (e.g. `nvim .`)
+        vim.api.nvim_create_autocmd("BufWinEnter", {
+            nested = true,
+            callback = function(info)
+                if vim.fn.isdirectory(info.file) == 1 then
+                    require("lazy").load({ plugins = { "oil.nvim" } })
+                end
+            end,
+        })
+    end,
     opts = {
         -- Oil will take over directory buffers (e.g. `vim .` or `:e src/`)
         default_file_explorer = true,

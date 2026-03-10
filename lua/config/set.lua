@@ -177,7 +177,8 @@ function M.mappings()
     -- keymap.set('n', "<Tab>", "<cmd>:popup mousemenu<CR>")
 
     -- stops continuation of comment when pressing o to insert new line
-    vim.api.nvim_create_autocmd({ "BufEnter" }, {
+    vim.api.nvim_create_autocmd("FileType", {
+        pattern = "*",
         callback = function()
             vim.opt_local.formatoptions:remove({ "c", "r", "o" })
         end,

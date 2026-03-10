@@ -1,5 +1,5 @@
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
+if not vim.uv.fs_stat(lazypath) then
     vim.fn.system({
         "git",
         "clone",
@@ -23,7 +23,7 @@ local plugins = {
         -- { import = 'plugins.leetcode' },
     },
     install = {},
-    checker = { enabled = true, notify = false },
+    checker = { enabled = true, notify = false, frequency = 86400 },
 }
 local opts = {}
 require("lazy").setup(plugins, opts)

@@ -21,6 +21,7 @@ local filename = {
 
 return {
     'nvim-lualine/lualine.nvim',
+    event = "VeryLazy",
     dependencies = { 'echasnovski/mini.icons', opts={} },
     config = function()
         require('lualine').setup{
@@ -35,7 +36,7 @@ return {
                 },
                 ignore_focus = {},
                 always_divide_middle = true,
-                globalstatus = false,
+                globalstatus = true,
                 refresh = {
                     tabline = 1000,
                     statusline = 1000,

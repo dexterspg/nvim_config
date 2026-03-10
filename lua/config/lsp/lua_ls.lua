@@ -1,8 +1,8 @@
 
+local nvim_data = vim.fn.stdpath("data")
 local mason_path = nvim_data .. '/mason/bin'
 
 return {
-    cmd = { "lua-language-server" },
     cmd = { mason_path .. "/lua-language-server.cmd", "--stdio" },
     filetypes = { "lua" },
     root_markers = {

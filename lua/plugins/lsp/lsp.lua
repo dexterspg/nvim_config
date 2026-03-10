@@ -44,7 +44,7 @@ return {
                         globals = { 'vim' },
                     },
                     workspace = {
-                        library = vim.api.nvim_get_runtime_file("", true),
+                        library = { vim.env.VIMRUNTIME },
                         checkThirdParty = false,
                     },
                     telemetry = { enable = false },
@@ -66,8 +66,16 @@ return {
             root_markers = { "package.json", ".git" },
         })
 
+        -- Markdown
+        vim.lsp.config('marksman', {
+            cmd = { mason_path .. "/marksman.cmd", "server" },
+            filetypes = { "markdown", "markdown.mdx" },
+            root_markers = { ".git", ".marksman.toml" },
+        })
+
         vim.lsp.enable({
             'lua_ls',
+            'marksman',
             -- 'pyright',
             'html',
             -- 'ts_ls',
