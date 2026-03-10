@@ -40,19 +40,12 @@ return {
     {
         'catppuccin/nvim',
         name = 'catppuccin',
-        lazy = false,
-        config = function()
-            -- vim.cmd('colorscheme catppuccin');
-
-            -- require('catppuccin').setup({
-            -- transparent_background=true,
-            -- term_colors = false,
-            -- })
-        end
+        lazy = true,
+        -- vim.cmd('colorscheme catppuccin')
     },
     {
         'folke/tokyonight.nvim',
-        -- lazy = true,
+        lazy = true,
         -- config = function() vim.cmd('colorscheme tokyonight') end
     },
     {
@@ -83,10 +76,7 @@ return {
     {
         'doki-theme/doki-theme-vim',
         lazy = true,
-        config = function()
-            -- vim.cmd('colorscheme katsuragi_misato')
-        end
-
+        -- vim.cmd('colorscheme katsuragi_misato')
     }
 
 }

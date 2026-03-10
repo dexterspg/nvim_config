@@ -4,8 +4,10 @@ return {
     cmd = { "TroubleToggle", "Trouble" },
     opts = { use_diagnostic_signs = true },
     keys = {
-        { "<leader>xx", "<cmd>Trouble diagnostics toggle<cr>",               desc = "Document Diagnostics (Trouble)" },
-        { "<leader>xX", "<cmd>Trouble diagnostics toggle filter.buf=0 <cr>", desc = "Workspace Diagnostics (Trouble)" },
+        { "<leader>xx", "<cmd>Trouble diagnostics toggle<cr>",               desc = "Diagnostics (Trouble)" },
+        { "<leader>xX", "<cmd>Trouble diagnostics toggle filter.buf=0 <cr>", desc = "Diagnostics - Buffer (Trouble)" },
+        { "<leader>xs", "<cmd>Trouble symbols toggle focus=false<cr>",      desc = "Symbols - Document (Trouble)" },
+        { "<leader>xS", "<cmd>Trouble lsp toggle focus=false<cr>",     desc = "LSP Definitions / References (Trouble)" },
         { "<leader>xL", "<cmd>Trouble loclist<cr>",                          desc = "Location List (Trouble)" },
         { "<leader>xQ", "<cmd>Trouble qflist toggle<cr>",                    desc = "Quickfix List (Trouble)" },
         -- {

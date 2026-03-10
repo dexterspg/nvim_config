@@ -110,6 +110,10 @@ function M.mappings()
     keymap.set("n", "<S-l>", ":bnext<CR>", opts)
     keymap.set("n", "<S-h>", ":bprevious<CR>", opts)
 
+    -- Toggle between current and last file (like Alt+Tab)
+    keymap.set("n", "<leader><leader>", "<C-^>", { noremap = true, silent = true, desc = "Toggle to alternate file" })
+    keymap.set("n", "<BS><BS>", "<C-^>", { noremap = true, silent = true, desc = "Toggle to alternate file" })
+
     --Move line up and down
     keymap.set("n", "<A-k>", "<esc>:m-2<CR>", opts)
     keymap.set("n", "<A-j>", "<esc>:m+1<CR>", opts)
@@ -173,7 +177,8 @@ function M.mappings()
     -- keymap.set('n', "<Tab>", "<cmd>:popup mousemenu<CR>")
 
     -- stops continuation of comment when pressing o to insert new line
-    vim.api.nvim_create_autocmd({ "BufEnter" }, {
+    vim.api.nvim_create_autocmd("FileType", {
+        pattern = "*",
         callback = function()
             vim.opt_local.formatoptions:remove({ "c", "r", "o" })
         end,

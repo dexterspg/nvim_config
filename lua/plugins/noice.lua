@@ -11,17 +11,9 @@ return {
     },
     config = function()
         local noice = require("noice")
-        noice.setup({
-            routes = {
-                {
-                    filter = {
-                        event = "msg_show",
-                        find = "Query error at",
-                    },
-                    opts = { skip = true },
-                },
-            },
-        })
+        noice.setup(
+            -- add any options here
+        )
 
     end
 

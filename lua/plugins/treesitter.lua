@@ -3,7 +3,7 @@ return {
     -- event = { "BufReadPost", "BufNewFile" },
     event = { "VeryLazy"},
     dependencies = {
-        'windwp/nvim-ts-autotag',
+'windwp/nvim-ts-autotag',
         'nvim-treesitter/nvim-treesitter-textobjects',
         'nvim-treesitter/nvim-treesitter-context'
     },

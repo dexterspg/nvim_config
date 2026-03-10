@@ -1,5 +1,6 @@
 return {
     'mason-org/mason.nvim',
+    cmd = { "Mason", "MasonInstall", "MasonUpdate", "MasonUninstall" },
     dependencies = {
         {
             'mason-org/mason-lspconfig.nvim',
@@ -27,14 +28,17 @@ return {
         mason_lspconfig.setup({
             ensure_installed = {
                 "jdtls",
+                "lua_ls",
+                "marksman",  -- Markdown LSP (enables gd for links)
                 -- "html-lsp",
                 -- "jsonls",
                 -- "ts_ls",
-                "lua_ls",
                 -- "cssls",
                 -- "basedpyright",
             },
-            automatic_enable = true,
+            automatic_enable = {
+                exclude = { "jdtls" },
+            },
         })
     end,
 }
