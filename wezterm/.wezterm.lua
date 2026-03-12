@@ -117,6 +117,47 @@ end
 --     local tab, pane, window = mux.spawn_window( cmd or {})
 --     window:gui_window():maximize()
 -- end)
+-- Right status mode: 1 = cwd, 2 = cpu+ram
+local status_mode = 1
+local cached_sysinfo = 'CPU: -- | RAM: --%'
+
+local function fetch_sysinfo()
+    local ok, stdout = wezterm.run_child_process({
+        'powershell', '-NoProfile', '-Command',
+        '$cpu = (Get-CimInstance Win32_Processor).LoadPercentage; ' ..
+        '$os = Get-CimInstance Win32_OperatingSystem; ' ..
+        '$ram = [math]::Round(($os.TotalVisibleMemorySize - $os.FreePhysicalMemory) / $os.TotalVisibleMemorySize * 100); ' ..
+        'Write-Output "$cpu $ram"'
+    })
+    if ok then
+        local cpu, ram = stdout:match('(%d+)%s+(%d+)')
+        if cpu and ram then
+            cached_sysinfo = string.format('CPU: %s%% | RAM: %s%%', cpu, ram)
+        end
+    end
+    wezterm.time.call_after(5, fetch_sysinfo)
+end
+wezterm.time.call_after(0, fetch_sysinfo)
+
+wezterm.on('update-right-status', function(window, pane)
+    if status_mode == 2 then
+        window:set_right_status(' ' .. cached_sysinfo .. ' ')
+    else
+        local cwd = ''
+        local uri = pane:get_current_working_dir()
+        if uri then
+            cwd = uri.file_path or tostring(uri)
+            -- show last 2 path components
+            cwd = cwd:gsub('\\', '/')
+            local parts = {}
+            for p in cwd:gmatch('[^/]+') do table.insert(parts, p) end
+            local n = #parts
+            cwd = (parts[n-1] and (parts[n-1] .. '/') or '') .. (parts[n] or '')
+        end
+        window:set_right_status(' ' .. cwd .. ' ')
+    end
+end)
+
 local config = {}
 if wezterm.config_builder then
     config = wezterm.config_builder()
@@ -217,6 +258,13 @@ config.keys = {
         }, pane)
     end) },
 
+    -- Toggle right status: LEADER+i (cwd <-> cpu+ram)
+    { key = "i", mods = "LEADER", action = wezterm.action_callback(function(window, pane)
+        status_mode = status_mode == 1 and 2 or 1
+        local label = status_mode == 1 and 'CWD' or 'CPU+RAM'
+        window:toast_notification('Status', label, nil, 1500)
+    end) },
+
     { key = "s",          mods = "LEADER",      action = act.SplitVertical { domain = "CurrentPaneDomain" } },
     { key = "v",          mods = "LEADER",      action = act.SplitHorizontal { domain = "CurrentPaneDomain" } },
     { key = "h",          mods = "LEADER",      action = act.ActivatePaneDirection("Left") },
@@ -262,7 +310,7 @@ config.keys = {
     end) },
 
     -- Colorscheme cycler: LEADER+p (next), LEADER+P (prev)
-    { key = "p", mods = "LEADER",       action = wezterm.action_callback(function(window, pane) cycle_scheme(window, 1)  end) },
+{ key = "p", mods = "LEADER",       action = wezterm.action_callback(function(window, pane) cycle_scheme(window, 1)  end) },
     { key = "P", mods = "LEADER",       action = wezterm.action_callback(function(window, pane) cycle_scheme(window, -1) end) },
 
     --  moving tabs around
