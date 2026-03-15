@@ -3,11 +3,23 @@ if vim.bo.buftype == 'nofile' or vim.fn.expand('%'):match('^fugitive://') then
     return
 end
 
--- local javaPath = "C:/Program Files/Java"
-local javaPath2 = "C:/Program Files/Amazon Corretto"
--- local jdkPath17 = javaPath .. "/jdk-17"
--- local jdkPath11 = javaPath .. "/jdk-11.0.7"
-local jdkPath21 = javaPath2 .. "/jdk21.0.9_10"
+-- Machine-specific JDK paths: auto-detect which one exists
+local jdk_candidates = {
+    "C:/Program Files/Amazon Corretto/jdk21.0.9_10",
+}
+
+local jdkPath21
+for _, path in ipairs(jdk_candidates) do
+    if vim.fn.isdirectory(path) == 1 then
+        jdkPath21 = path
+        break
+    end
+end
+
+if not jdkPath21 then
+    vim.notify("No JDK 21 found! Check jdk_candidates in ftplugin/java.lua", vim.log.levels.ERROR)
+    return
+end
 
 
 -- vim.env.JAVA_HOME = jdkPath17
@@ -25,21 +37,7 @@ local path_to_java_dap = vim.fn.stdpath("data") .. "/mason/packages/java-debug-a
 vim.env.LOMBOK_JAR = path_to_lombok
 
 local root_markers = { "pom.xml", ".git", "mvnw", "gradlew",  "build.gradle" }
--- local root_dir = require('jdtls.setup').find_root(root_markers)
 
--- local function find_root_dir()
--- 	local current_dir = vim.fn.getcwd()
--- 	for _, marker in ipairs(root_markers) do
--- 		local root_dir = require("lspconfig").util.root_pattern(marker)(current_dir)
--- 		if root_dir and root_dir ~= "" then
---             print("Detected root directory: " .. root_dir)
--- 			return root_dir
--- 		end
--- 	end
---     print("Using current directory as root: " .. current_dir)
--- 	return current_dir
--- end
---
 _G._java_root_cache = _G._java_root_cache or {}
 
 local function find_root_dir()
@@ -89,14 +87,12 @@ end
 
 
 local root_dir = find_root_dir()
--- print("root_dir: " .. root_dir)
 
 local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t")
 local workspace_dir = vim.fn.stdpath("data") .. "/site/java/workspace-root/" .. project_name
 
 -- Check if project directory already exists
 if vim.fn.isdirectory(workspace_dir) == 0 then
-    -- Create new project directory
     vim.fn.mkdir(workspace_dir, "p")
 end
 
@@ -105,8 +101,8 @@ local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protoc
 
 local success, keymaps = pcall(require, "config.lsp.keymaps")
 if not success then
-	vim.notify("Error: Failed to load keymaps.lua", vim.log.levels.ERROR)
-	return
+    vim.notify("Error: Failed to load keymaps.lua", vim.log.levels.ERROR)
+    return
 end
 
 local on_attach = function(_, bufnr)
@@ -116,130 +112,130 @@ end
 vim.cmd("lcd " .. root_dir)
 
 local config = {
-	cmd = {
-		"java",
-		"-Declipse.application=org.eclipse.jdt.ls.core.id1",
-		"-Dosgi.bundles.defaultStartLevel=4",
-		"-Declipse.product=org.eclipse.jdt.ls.core.product",
-		"-Dlog.level=ALL",
-		"-javaagent:" .. tostring(vim.fn.getenv("LOMBOK_JAR")),
-		"-Xmx2G",
-		"--add-modules=ALL-SYSTEM",
-		"--add-opens",
-		"java.base/java.util=ALL-UNNAMED",
-		"--add-opens",
-		"java.base/java.lang=ALL-UNNAMED",
-		"-jar",
-		path_to_jar,
-		"-configuration",
-		config_dir,
-		"-data",
-		workspace_dir,
-	},
+    cmd = {
+        jdkPath21 .. "/bin/java.exe",
+        "-Declipse.application=org.eclipse.jdt.ls.core.id1",
+        "-Dosgi.bundles.defaultStartLevel=4",
+        "-Declipse.product=org.eclipse.jdt.ls.core.product",
+        "-Dlog.level=ALL",
+        "-javaagent:" .. tostring(vim.fn.getenv("LOMBOK_JAR")),
+        "-Xmx2G",
+        "--add-modules=ALL-SYSTEM",
+        "--add-opens",
+        "java.base/java.util=ALL-UNNAMED",
+        "--add-opens",
+        "java.base/java.lang=ALL-UNNAMED",
+        "-jar",
+        path_to_jar,
+        "-configuration",
+        config_dir,
+        "-data",
+        workspace_dir,
+    },
 
-	root_dir = root_dir,
-	capabilities = capabilities,
-	on_attach = on_attach,
-	settings = {
-		java = {
-			home = jdkPath21,
-			eclipse = {
-				downloadSources = true,
-			},
-			configuration = {
-				updateBuildConfiguration = "interactive",
-				runtimes = {
-					{
-						name = "JavaSE-21",
-						path = jdkPath21,
-					},
+    root_dir = root_dir,
+    capabilities = capabilities,
+    on_attach = on_attach,
+    settings = {
+        java = {
+            home = jdkPath21,
+            eclipse = {
+                downloadSources = true,
+            },
+            configuration = {
+                updateBuildConfiguration = "interactive",
+                runtimes = {
+                    {
+                        name = "JavaSE-21",
+                        path = jdkPath21,
+                    },
 
-					-- {
-					-- 	name = "JavaSE-17",
-					-- 	path = jdkPath17,
-					-- },
-					-- {
-						-- -- name = "JavaSE-11",
-						-- path = jdkPath11,
-					-- },
-				},
-			},
-			autobuild = {
-				enabled = false,
-			},
-			maven = {
-				downloadSources = true,
-			},
-			implementationsCodeLens = {
-				enabled = true,
-			},
-			referencesCodeLens = {
-				enabled = true,
-			},
-			references = {
-				includeDecompiledSources = true,
-			},
-			inlayHints = {
-				parameterNames = {
-					enabled = "all", -- literals, all, none
-				},
-			},
-			format = {
-				enabled = true,
-				settings = {
-					url = vim.fn.stdpath("config"):gsub("\\","/") .. "/lang-servers/intellij-java-google-style.xml",
-					profile = "GoogleStyle",
-				},
-			},
-		},
-		signatureHelp = { enabled = true },
-		completion = {
-			favoriteStaticMembers = {
-				"org.hamcrest.MatcherAssert.assertThat",
-				"org.hamcrest.Matchers.*",
-				"org.hamcrest.CoreMatchers.*",
-				"org.junit.jupiter.api.Assertions.*",
-				"java.util.Objects.requireNonNull",
-				"java.util.Objects.requireNonNullElse",
-				"org.mockito.Mockito.*",
-			},
-			importOrder = {
-				"java",
-				"javax",
-				"com",
-				"org",
-			},
-		},
-		sources = {
-			organizeImports = {
-				starThreshold = 9999,
-				staticStarThreshold = 9999,
-			},
-		},
-		codeGeneration = {
-			toString = {
-				template = "${object.className}{${member.name()}=${member.value}, ${otherMembers}}",
-			},
-			useBlocks = true,
-		},
-	},
-
-	flags = {
-		allow_incremental_sync = true,
-	},
-	init_options = {
-		bundles = {
-             vim.fn.glob(path_to_java_dap .. "/com.microsoft.java.debug.plugin-*.jar")
+                    -- {
+                    -- 	name = "JavaSE-17",
+                    -- 	path = jdkPath17,
+                    -- },
+                    -- {
+                        -- -- name = "JavaSE-11",
+                        -- path = jdkPath11,
+                    -- },
+                },
+            },
+            autobuild = {
+                enabled = false,
+            },
+            maven = {
+                downloadSources = true,
+            },
+            implementationsCodeLens = {
+                enabled = true,
+            },
+            referencesCodeLens = {
+                enabled = true,
+            },
+            references = {
+                includeDecompiledSources = true,
+            },
+            inlayHints = {
+                parameterNames = {
+                    enabled = "all", -- literals, all, none
+                },
+            },
+            format = {
+                enabled = true,
+                settings = {
+                    url = vim.fn.stdpath("config"):gsub("\\","/") .. "/lang-servers/intellij-java-google-style.xml",
+                    profile = "GoogleStyle",
+                },
+            },
         },
-	},
+        signatureHelp = { enabled = true },
+        completion = {
+            favoriteStaticMembers = {
+                "org.hamcrest.MatcherAssert.assertThat",
+                "org.hamcrest.Matchers.*",
+                "org.hamcrest.CoreMatchers.*",
+                "org.junit.jupiter.api.Assertions.*",
+                "java.util.Objects.requireNonNull",
+                "java.util.Objects.requireNonNullElse",
+                "org.mockito.Mockito.*",
+            },
+            importOrder = {
+                "java",
+                "javax",
+                "com",
+                "org",
+            },
+        },
+        sources = {
+            organizeImports = {
+                starThreshold = 9999,
+                staticStarThreshold = 9999,
+            },
+        },
+        codeGeneration = {
+            toString = {
+                template = "${object.className}{${member.name()}=${member.value}, ${otherMembers}}",
+            },
+            useBlocks = true,
+        },
+    },
+
+    flags = {
+        allow_incremental_sync = true,
+    },
+    init_options = {
+        bundles = {
+            vim.fn.glob(path_to_java_dap .. "/com.microsoft.java.debug.plugin-*.jar")
+        },
+    },
 }
 
 vim.api.nvim_create_autocmd({ "BufWritePost" }, {
-  pattern = { "*.java" },
-  callback = function()
-    vim.schedule(function()
-      pcall(vim.lsp.codelens.refresh)
-    end)
-  end,
+    pattern = { "*.java" },
+    callback = function()
+        vim.schedule(function()
+            pcall(vim.lsp.codelens.refresh)
+        end)
+    end,
 })
 require("jdtls").start_or_attach(config)
