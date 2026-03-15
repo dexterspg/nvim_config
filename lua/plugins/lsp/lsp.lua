@@ -76,7 +76,7 @@ return {
         vim.lsp.enable({
             'lua_ls',
             'marksman',
-            -- 'pyright',
+            'pyright',
             'html',
             -- 'ts_ls',
             -- 'volar',
