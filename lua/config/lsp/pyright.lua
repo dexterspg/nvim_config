@@ -1,4 +1,4 @@
-local path_to_python = '/c/Python313/python.exe'
+local path_to_python = 'C:/Python313/python.exe'
 
 local function organize_imports()
     local params = {
