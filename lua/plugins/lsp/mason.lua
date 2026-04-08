@@ -37,7 +37,7 @@ return {
                 "basedpyright",
             },
             automatic_enable = {
-                exclude = { "jdtls" },
+                exclude = { "jdtls", "basedpyright" },
             },
         })
     end,
