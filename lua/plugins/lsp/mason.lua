@@ -34,7 +34,7 @@ return {
                 -- "jsonls",
                 -- "ts_ls",
                 -- "cssls",
-                -- "basedpyright",
+                "basedpyright",
             },
             automatic_enable = {
                 exclude = { "jdtls" },

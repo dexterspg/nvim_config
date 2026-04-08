@@ -25,11 +25,13 @@ return {
         })
 
         -- Python
-        local pyright_config = require('config.lsp.pyright')
-        vim.lsp.config('pyright', {
-            cmd = { "C:\\Users\\dexte\\AppData\\Roaming\\npm\\pyright-langserver.cmd", "--stdio" },
-            root_markers = pyright_config.root_markers,
-            settings = pyright_config.settings,
+        local basedpyright_config = require('config.lsp.basedpyright')
+        vim.lsp.config('basedpyright', {
+            cmd = { "cmd", "/c", mason_path .. "/basedpyright-langserver.cmd", "--stdio" },
+            filetypes = basedpyright_config.default_config.filetypes,
+            root_markers = { "pyrightconfig.json", "pyproject.toml", "setup.py", "setup.cfg", "requirements.txt", "Pipfile", ".git" },
+            settings = basedpyright_config.default_config.settings,
+            single_file_support = basedpyright_config.default_config.single_file_support,
         })
 
         -- Lua
@@ -76,7 +78,7 @@ return {
         vim.lsp.enable({
             'lua_ls',
             'marksman',
-            'pyright',
+            'basedpyright',
             'html',
             -- 'ts_ls',
             -- 'volar',
