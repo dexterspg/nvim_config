@@ -16,6 +16,7 @@ return {
             callback = function(info)
                 if vim.fn.isdirectory(info.file) == 1 then
                     require("lazy").load({ plugins = { "oil.nvim" } })
+                    require("oil").open(info.file)
                 end
             end,
         })
