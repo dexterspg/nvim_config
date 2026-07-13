@@ -14,7 +14,7 @@ return {
         if not ok then return end
 
         ts.setup {
-            ensure_installed = { "c", "query", "vimdoc", "vim", "lua", "xml", "javascript", "typescript", "css", "java", "html", "python", "vue" },
+            ensure_installed = { "c", "query", "vimdoc", "vim", "lua", "xml", "javascript", "typescript", "css", "java", "html", "python", "vue", "json", "jsonc" },
             sync_install = false,
             ignore_install = {},
             auto_install = true,
