@@ -32,7 +32,6 @@ local config_dir = jdtls_dir .. "/config_win"
 local plugins_dir = jdtls_dir .. "/plugins"
 local path_to_jar = vim.fn.glob(plugins_dir .. "/org.eclipse.equinox.launcher_*.jar")
 local path_to_lombok = jdtls_dir .. "/lombok.jar"
-local path_to_java_dap = vim.fn.stdpath("data") .. "/mason/packages/java-debug-adapter/extension/server/"
 
 
 vim.env.LOMBOK_JAR = path_to_lombok
@@ -108,7 +107,6 @@ end
 
 local on_attach = function(_, bufnr)
     keymaps.map_java_keys({ buffer = bufnr })
-    require('jdtls').setup_dap({ hotcodereplace = 'auto'})
 end
 vim.cmd("lcd " .. root_dir)
 
@@ -223,11 +221,6 @@ local config = {
 
     flags = {
         allow_incremental_sync = true,
-    },
-    init_options = {
-        bundles = {
-            vim.fn.glob(path_to_java_dap .. "/com.microsoft.java.debug.plugin-*.jar")
-        },
     },
 }
 
