@@ -17,7 +17,6 @@ local plugins = {
         { import = 'plugins.git-helper' },
         { import = 'plugins.lsp' },
         { import = 'plugins.formatting' },
-        { import = 'plugins.debugging' },
         { import = 'plugins.assistant.codeium' },
         -- { import = 'plugins.assistant.avante' },
         -- { import = 'plugins.leetcode' },
