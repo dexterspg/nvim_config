@@ -7,21 +7,13 @@ return {
         { "L3MON4D3/LuaSnip", version = "v2.*" },
         "rafamadriz/friendly-snippets",
         "saadparwaiz1/cmp_luasnip",
-        "Exafunction/codeium.nvim",
     },
     config = function()
         local ls = require("luasnip")
         local cmp = require("cmp")
 
-        vim.g.snippets_dir = "snippets"
         require("luasnip.loaders.from_vscode").lazy_load()
         require("luasnip.loaders.from_snipmate").lazy_load()
-
-        local has_words_before = function()
-            unpack = unpack or table.unpack
-            local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-            return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
-        end
 
         -- local cmp_select = { behavior = cmp.SelectBehavior.Select, select = true }
 
@@ -34,10 +26,6 @@ return {
                     behavior = cmp.SelectBehavior.Select,
                     select = true,
                 }),
-                ["<leader><Tab>"] = function()
-                    cmp.mapping.confirm()
-                    ls.expand_or_jump()
-                end,
                 ["<Tab>"] = cmp.mapping(function(fallback)
                     if cmp.visible() then
                         cmp.select_next_item()
@@ -66,7 +54,6 @@ return {
                 { name = "nvim_lsp" },
                 --{ name = 'vsnip' }, -- For vsnip users.
                 { name = "luasnip" }, -- For luasnip users.
-                { name = "codeium" }, -- For luasnip users.
                 -- { name = 'ultisnips' }, -- For ultisnips users.
                 -- { name = 'snippy' }, -- For snippy users.
             }, {
@@ -79,11 +66,5 @@ return {
         end, { silent = true })
         --vim.keymap.set({ "i", "s" }, "<C-n>", function() ls.expand_or_jump(1) end, { silent = true })
         --vim.keymap.set({ "i", "s" }, "<C-p>", function() ls.jump(-1) end, { silent = true })
-        --
-        require("cmp").setup.filetype({ "dap-repl", "dapui_watches", "dapui_hover" }, {
-            sources = {
-                { name = "dap" },
-            },
-        })
     end,
 }
