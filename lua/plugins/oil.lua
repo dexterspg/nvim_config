@@ -77,7 +77,19 @@ return {
             ["`"] = "actions.cd",
             ["~"] = "actions.tcd",
             ["gs"] = "actions.change_sort",
-            ["gx"] = "actions.open_external",
+            -- files open in their default app; folders open inside oil (an external Explorer window opens behind the terminal)
+            ["gx"] = {
+                desc = "Open file externally, enter folder in oil",
+                callback = function()
+                    local actions = require("oil.actions")
+                    local entry = require("oil").get_cursor_entry()
+                    if entry and entry.type == "directory" then
+                        actions.select.callback()
+                    else
+                        actions.open_external.callback()
+                    end
+                end,
+            },
             ["g."] = "actions.toggle_hidden",
             ["g\\"] = "actions.toggle_trash",
         },
