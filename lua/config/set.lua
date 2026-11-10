@@ -155,6 +155,26 @@ function M.mappings()
     copy_path("%:p", { key = "<leader>cp", text = "Copy absolute file path" })
     copy_path("%:p:h", { key = "<leader>cd", text = "Copy absolute parent folder path" })
 
+    -- reveal the current file in Windows Explorer (opens its folder with the file selected)
+    keymap.set("n", "<leader>cx", function()
+        local path = vim.fn.expand("%:p")
+        if path == "" or vim.fn.filereadable(path) == 0 then
+            vim.notify("No file on disk for this buffer", vim.log.levels.WARN)
+            return
+        end
+        vim.fn.jobstart({ "explorer.exe", "/select," .. path }, { detach = true })
+    end, { desc = "Reveal file in Explorer" })
+
+    -- open the current file with its default application
+    keymap.set("n", "<leader>co", function()
+        local path = vim.fn.expand("%:p")
+        if path == "" or vim.fn.filereadable(path) == 0 then
+            vim.notify("No file on disk for this buffer", vim.log.levels.WARN)
+            return
+        end
+        vim.ui.open(path)
+    end, { desc = "Open file in default app" })
+
     -- toggle paste
     _G.toggle_paste = function()
         if vim.o.paste then
