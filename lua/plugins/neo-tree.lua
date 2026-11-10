@@ -11,8 +11,8 @@ return {
         { "<leader>n", "<cmd>Neotree toggle<cr>", desc = "Toggle Neo-tree" },
         { "<leader>fe", "<cmd>Neotree toggle<cr>", desc = "Toggle Neo-tree" },
         { "<leader>fE", "<cmd>Neotree reveal<cr>", desc = "Reveal in Neo-tree" },
-        { "<leader>fb", "<cmd>Neotree buffers toggle<cr>", desc = "Neo-tree: Buffers" },
-        { "<leader>gs", "<cmd>Neotree git_status toggle<cr>", desc = "Neo-tree: Git Status" },
+        { "<leader>fB", "<cmd>Neotree buffers toggle<cr>", desc = "Neo-tree: Buffers" },
+        { "<leader>fG", "<cmd>Neotree git_status toggle<cr>", desc = "Neo-tree: Git Status" },
     },
     config = function()
         require("neo-tree").setup({
