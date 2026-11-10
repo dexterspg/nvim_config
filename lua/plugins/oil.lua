@@ -1,3 +1,36 @@
+-- Open a folder in Windows Explorer and bring that window to the front.
+-- A plain open leaves the new window behind the terminal, so tap ALT (unlocks foreground
+-- switching) and activate the window once it appears.
+local function open_folder_in_explorer(path)
+    path = path:gsub("[/\\]+$", "")
+    local script = [[
+Add-Type @"
+using System; using System.Runtime.InteropServices;
+public class OilFg {
+ [DllImport("user32.dll")] public static extern bool SetForegroundWindow(IntPtr h);
+ [DllImport("user32.dll")] public static extern bool ShowWindow(IntPtr h, int c);
+ [DllImport("user32.dll")] public static extern void keybd_event(byte vk, byte scan, uint flags, UIntPtr extra);
+}
+"@
+$p = ']] .. path:gsub("'", "''") .. [['
+Start-Process explorer.exe -ArgumentList ('"' + $p + '"')
+$h = $null
+for ($i = 0; $i -lt 40 -and -not $h; $i++) {
+  Start-Sleep -Milliseconds 100
+  foreach ($w in (New-Object -ComObject Shell.Application).Windows()) {
+    try { if (([Uri]$w.LocationURL).LocalPath.TrimEnd('\') -ieq $p) { $h = [IntPtr]$w.HWND; break } } catch {}
+  }
+}
+if ($h) {
+  [OilFg]::keybd_event(0x12, 0, 0, [UIntPtr]::Zero); [OilFg]::keybd_event(0x12, 0, 2, [UIntPtr]::Zero)
+  [void][OilFg]::ShowWindow($h, 9); [void][OilFg]::SetForegroundWindow($h)
+}
+]]
+    local encoded = vim.base64.encode(vim.iconv(script, "utf-8", "utf-16le"))
+    -- not detached: a detached hidden PowerShell never gets as far as opening the window
+    vim.fn.jobstart({ "powershell.exe", "-NoProfile", "-NonInteractive", "-WindowStyle", "Hidden", "-EncodedCommand", encoded })
+end
+
 return {
     'stevearc/oil.nvim',
     dependencies = { 'echasnovski/mini.icons' },
@@ -77,14 +110,16 @@ return {
             ["`"] = "actions.cd",
             ["~"] = "actions.tcd",
             ["gs"] = "actions.change_sort",
-            -- files open in their default app; folders open inside oil (an external Explorer window opens behind the terminal)
+            -- files open in their default app; folders open in Explorer, brought to the front
             ["gx"] = {
-                desc = "Open file externally, enter folder in oil",
+                desc = "Open file or folder externally",
                 callback = function()
                     local actions = require("oil.actions")
-                    local entry = require("oil").get_cursor_entry()
-                    if entry and entry.type == "directory" then
-                        actions.select.callback()
+                    local oil = require("oil")
+                    local entry = oil.get_cursor_entry()
+                    local dir = oil.get_current_dir()
+                    if entry and dir and entry.type == "directory" then
+                        open_folder_in_explorer(dir .. entry.name)
                     else
                         actions.open_external.callback()
                     end
