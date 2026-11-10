@@ -5,8 +5,7 @@ return {
         "nvim-lua/plenary.nvim",
         {
             "nvim-telescope/telescope-fzf-native.nvim",
-            build =
-            "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
+            build = "make", -- gcc + make (no cmake installed); produces build/libfzf.dll
         },
         "nvim-telescope/telescope-file-browser.nvim",
         "echasnovski/mini.icons",
@@ -20,8 +19,9 @@ return {
         vim.keymap.set("n", "<leader>pf", builtin.find_files, { desc = "Find files (project root)" })
         vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Find buffers" })
         vim.keymap.set("n", "<leader>?", builtin.oldfiles, { desc = "Find recent files" })
-        vim.keymap.set("n", "<leader>sf", "<cmd>Telescope file_browser<cr>", { desc = "Browse files (telescope)" })
-        vim.keymap.set("n", "<leader>sF", "<cmd>Telescope file_browser path=%:p:h select_buffer=true<cr>", { desc = "Browse current directory" })
+        -- (kept off the <leader>s prefix, which leap uses)
+        vim.keymap.set("n", "<leader>ff", "<cmd>Telescope file_browser<cr>", { desc = "Browse files (telescope)" })
+        vim.keymap.set("n", "<leader>fF", "<cmd>Telescope file_browser path=%:p:h select_buffer=true<cr>", { desc = "Browse current directory" })
 
         -- Content Search
         vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "Find by grep (live)" })
@@ -29,7 +29,7 @@ return {
 
         -- Other
         vim.keymap.set("n", "<leader>uC", builtin.colorscheme, { desc = "Preview colorscheme" })
-        vim.keymap.set("n", "<leader>sk", builtin.keymaps, { desc = "Search keymaps" })
+        vim.keymap.set("n", "<leader>fk", builtin.keymaps, { desc = "Search keymaps" })
 
         telescope.setup({
             defaults = {
