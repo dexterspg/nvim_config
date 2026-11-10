@@ -1,6 +1,6 @@
 return {
     "nvim-telescope/telescope.nvim",
-    branch = "0.1.x",
+    branch = "master", -- 0.1.x is frozen (2024) and breaks current_buffer_fuzzy_find with newer nvim-treesitter
     dependencies = {
         "nvim-lua/plenary.nvim",
         {
@@ -26,6 +26,8 @@ return {
         -- Content Search
         vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "Find by grep (live)" })
         vim.keymap.set("n", "<leader>fw", builtin.grep_string, { desc = "Find word under cursor" })
+        vim.keymap.set("n", "<leader>fc", builtin.current_buffer_fuzzy_find, { desc = "Fuzzy find in current buffer" })
+        vim.keymap.set("n", "<leader>fR", builtin.resume, { desc = "Resume last Telescope search" })
 
         -- Other
         vim.keymap.set("n", "<leader>uC", builtin.colorscheme, { desc = "Preview colorscheme" })
