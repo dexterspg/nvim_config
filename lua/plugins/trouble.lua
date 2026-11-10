@@ -1,8 +1,8 @@
 return {
     'folke/trouble.nvim',
     dependencies = { 'echasnovski/mini.icons' },
-    cmd = { "TroubleToggle", "Trouble" },
-    opts = { use_diagnostic_signs = true },
+    cmd = "Trouble",
+    opts = {},
     keys = {
         { "<leader>xx", "<cmd>Trouble diagnostics toggle<cr>",               desc = "Diagnostics (Trouble)" },
         { "<leader>xX", "<cmd>Trouble diagnostics toggle filter.buf=0 <cr>", desc = "Diagnostics - Buffer (Trouble)" },
