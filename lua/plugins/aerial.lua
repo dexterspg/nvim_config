@@ -1,5 +1,6 @@
 return {
     'stevearc/aerial.nvim',
+    branch = "nvim-0.11", -- master needs Neovim 0.12; setup() quits early on 0.11 and no commands exist
     dependencies = {
         "echasnovski/mini.icons",
     },
