@@ -125,6 +125,10 @@ function M.mappings()
     keymap.set("n", "#", "#zz", opts)
     keymap.set("n", "*", "*zz", opts)
 
+    -- visual * / #: search for the selected text (a group of words) literally, then n / N continue
+    keymap.set("x", "*", [[y/\V<C-r>=escape(@", '/\')<CR><CR>zz]], opts)
+    keymap.set("x", "#", [[y?\V<C-r>=escape(@", '?\')<CR><CR>zz]], opts)
+
     -- Paste over visual not modified
     keymap.set("x", "p", [["_dP]])
 
