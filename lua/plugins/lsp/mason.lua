@@ -30,7 +30,7 @@ return {
                 "jdtls",
                 "lua_ls",
                 "marksman",  -- Markdown LSP (enables gd for links)
-                -- "html-lsp",
+                "html",      -- lspconfig name (Mason package is "html-lsp")
                 -- "jsonls",
                 -- "ts_ls",
                 -- "cssls",
