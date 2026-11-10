@@ -155,35 +155,11 @@ function M.mappings()
     copy_path("%:p", { key = "<leader>cp", text = "Copy absolute file path" })
     copy_path("%:p:h", { key = "<leader>cd", text = "Copy absolute parent folder path" })
 
-    -- path to act on: the file in this buffer, or in an oil buffer the entry under the cursor (else its folder)
-    local function target_path()
-        if vim.bo.filetype == "oil" then
-            local ok, oil = pcall(require, "oil")
-            local dir = ok and oil.get_current_dir() or nil
-            if not dir then return nil end
-            local entry = oil.get_cursor_entry()
-            return vim.fs.normalize(entry and (dir .. entry.name) or dir):gsub("/", "\\")
-        end
-        local path = vim.fn.expand("%:p")
-        if path == "" or vim.fn.filereadable(path) == 0 then return nil end
-        return path
-    end
-
-    -- reveal in Windows Explorer (a file is selected inside its folder, a folder is opened)
-    keymap.set("n", "<leader>cx", function()
-        local path = target_path()
-        if not path then
-            vim.notify("No file on disk for this buffer", vim.log.levels.WARN)
-            return
-        end
-        local arg = vim.fn.isdirectory(path) == 1 and path or ("/select," .. path)
-        vim.fn.jobstart({ "explorer.exe", arg }, { detach = true })
-    end, { desc = "Reveal file in Explorer" })
-
-    -- open with the default application
+    -- open the current file with its default application
+    -- (to browse the file's folder use oil: "-" in this window, "<leader>-" floating)
     keymap.set("n", "<leader>co", function()
-        local path = target_path()
-        if not path then
+        local path = vim.fn.expand("%:p")
+        if path == "" or vim.fn.filereadable(path) == 0 then
             vim.notify("No file on disk for this buffer", vim.log.levels.WARN)
             return
         end
