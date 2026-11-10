@@ -140,6 +140,17 @@ function M.mappings()
     keymap.set({ "n", "v" }, "<leader>y", '"+y', opts)
     keymap.set({ "n", "v" }, "<leader>Y", '"+Y', opts)
 
+    -- copy absolute path of the current file to the system clipboard
+    keymap.set("n", "<leader>cp", function()
+        local path = vim.fn.expand("%:p")
+        if path == "" then
+            vim.notify("No file path for this buffer", vim.log.levels.WARN)
+            return
+        end
+        vim.fn.setreg("+", path)
+        vim.notify("Copied: " .. path)
+    end, { desc = "Copy absolute file path" })
+
     -- toggle paste
     _G.toggle_paste = function()
         if vim.o.paste then
