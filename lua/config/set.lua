@@ -206,6 +206,16 @@ function M.mappings()
     -- keymap.set('n', "<RightMouse>", "<cmd>:popup mousemenu<CR>")
     -- keymap.set('n', "<Tab>", "<cmd>:popup mousemenu<CR>")
 
+    -- Notify WezTerm of current file directory via OSC 7
+    vim.api.nvim_create_autocmd({ "BufEnter", "DirChanged" }, {
+        callback = function()
+            local path = vim.fn.expand("%:p:h")
+            if path and path ~= "" then
+                io.write("\027]7;file://" .. vim.uv.os_gethostname() .. path .. "\027\\")
+            end
+        end,
+    })
+
     -- stops continuation of comment when pressing o to insert new line
     vim.api.nvim_create_autocmd("FileType", {
         pattern = "*",

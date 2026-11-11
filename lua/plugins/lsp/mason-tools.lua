@@ -6,7 +6,6 @@ return {
     -- No `event`: the plugin checks for missing tools on VimEnter, so it must load at startup
     opts = {
         ensure_installed = {
-            "stylua",    -- Lua formatter
             "black",     -- Python formatter
             "prettierd", -- JS / TS / JSON / Vue / CSS formatter
             "pylint",    -- Python linter
