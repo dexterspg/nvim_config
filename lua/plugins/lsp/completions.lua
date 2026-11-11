@@ -7,7 +7,6 @@ return {
         { "L3MON4D3/LuaSnip", version = "v2.*" },
         "rafamadriz/friendly-snippets",
         "saadparwaiz1/cmp_luasnip",
-        "Exafunction/codeium.nvim",
     },
     config = function()
         local ls = require("luasnip")
@@ -66,7 +65,6 @@ return {
                 { name = "nvim_lsp" },
                 --{ name = 'vsnip' }, -- For vsnip users.
                 { name = "luasnip" }, -- For luasnip users.
-                { name = "codeium" }, -- For luasnip users.
                 -- { name = 'ultisnips' }, -- For ultisnips users.
                 -- { name = 'snippy' }, -- For snippy users.
             }, {
